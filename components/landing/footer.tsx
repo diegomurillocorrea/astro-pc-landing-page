@@ -74,10 +74,24 @@ export function Footer() {
           />
         </div>
 
-        <div className="flex flex-col gap-4 py-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="t-meta text-paper/62">
-            © {year} {brand.name}. {footer.colophon}
-          </p>
+        <div className="flex flex-col gap-4 py-8 sm:flex-row sm:items-end sm:justify-between">
+          <div className="space-y-2">
+            <p className="t-meta text-paper/62">
+              © {year} {brand.name}. {footer.colophon}
+            </p>
+            <p className="t-meta text-paper/62">
+              {footer.creditPrefix}{" "}
+              <a
+                href={footer.creditUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display font-extrabold uppercase tracking-tight text-paper/80 transition-colors hover:text-mint"
+              >
+                {footer.creditBrand}
+              </a>{" "}
+              ©
+            </p>
+          </div>
           <p className="t-label flex items-center gap-2 text-paper/62">
             <span className="pulse-dot size-1.5 rounded-full bg-mint" />
             {hero.status} · {brand.region}

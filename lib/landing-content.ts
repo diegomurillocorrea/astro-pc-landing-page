@@ -259,4 +259,7 @@ export const footer = {
     "Escríbenos por WhatsApp y coordinamos la visita a domicilio en San Salvador y alrededores.",
   cta: "Agendar Visita por WhatsApp",
   colophon: "Diseñado y mantenido en El Salvador.",
+  creditPrefix: "Developed by",
+  creditBrand: "DAIEGO",
+  creditUrl: "https://www.daiego.com",
 } as const;
