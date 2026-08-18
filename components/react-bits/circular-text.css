@@ -1,0 +1,44 @@
+.circular-text {
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  font-weight: 600;
+  color: #c3ffdc;
+  text-align: center;
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  -webkit-transform-origin: 50% 50%;
+}
+
+.circular-text span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: inline-block;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 600;
+  transform-origin: center center;
+}
+
+.circular-text.hero-orbit {
+  width: 260px;
+  height: 260px;
+  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  color: #c3ffdc;
+  cursor: default;
+}
+
+.circular-text.hero-orbit span {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circular-text span {
+    transition: none;
+  }
+}

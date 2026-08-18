@@ -1,26 +1,296 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base */
+  --ink: #03182a;
+  --navy: #052743;
+  --navy-mid: #123a5c;
+  --paper: #ffffff;
+  --bone: #f2eee3;
+
+  /* Acentos */
+  --mint: #c3ffdc;
+  /* Oscurecido lo justo para pasar AA sobre `--bone`. */
+  --cobalt: #2a52f0;
+
+  --background: var(--navy);
+  --foreground: var(--paper);
+  --primary: var(--mint);
+  --primary-foreground: var(--navy);
+  --secondary: var(--navy-mid);
+
+  /* Anillo de foco: las secciones claras lo sobreescriben */
+  --focus: var(--mint);
+
+  --gutter: clamp(1.125rem, 4vw, 4rem);
 }
 
 @theme inline {
+  --color-ink: var(--ink);
+  --color-navy: var(--navy);
+  --color-navy-mid: var(--navy-mid);
+  --color-paper: var(--paper);
+  --color-bone: var(--bone);
+  --color-mint: var(--mint);
+  --color-cobalt: var(--cobalt);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --font-sans: var(--font-instrument);
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-space-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--ink);
 }
 
 body {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+::selection {
+  background: var(--mint);
+  color: var(--navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ---------------------------------------------------------------
+   Escala tipográfica editorial
+   --------------------------------------------------------------- */
+
+.t-hero,
+.t-display,
+.t-section,
+.t-numeral {
+  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Syne Extrabold es muy ancha: los tamaños están calibrados para que la
+   palabra más larga de cada bloque quepa sin partirse. */
+.t-hero {
+  font-size: var(--hero-size, clamp(1.5rem, 7.8vw, 8rem));
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+}
+
+.t-display {
+  font-size: var(--display-size, clamp(1.875rem, 7vw, 5.75rem));
+  line-height: 0.86;
+  letter-spacing: -0.04em;
+}
+
+.t-section {
+  font-size: var(--section-size, clamp(1.5rem, 5vw, 3.75rem));
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+}
+
+.t-numeral {
+  font-size: var(--numeral-size, clamp(2.5rem, 8.2vw, 7.5rem));
+  line-height: 0.74;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-heading {
+  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.t-label {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  line-height: 1.1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.t-meta {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
+/* Texto contorneado: sólo decorativo o en piezas de gran escala */
+.t-outline {
+  color: transparent;
+  -webkit-text-stroke-width: clamp(1px, 0.14vw, 2px);
+  -webkit-text-stroke-color: var(--outline-color, var(--mint));
+}
+
+@supports not (-webkit-text-stroke: 1px currentcolor) {
+  .t-outline {
+    color: var(--outline-color, var(--mint));
+  }
+}
+
+/* ---------------------------------------------------------------
+   Layout
+   --------------------------------------------------------------- */
+
+.shell {
+  width: 100%;
+  max-width: 96rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.rules {
+  background-image: linear-gradient(
+    90deg,
+    color-mix(in srgb, currentcolor 9%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 25% 100%;
+}
+
+.dotted {
+  background-image: radial-gradient(
+    color-mix(in srgb, currentcolor 26%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 14px 14px;
+}
+
+.section-light {
+  --focus: var(--ink);
+}
+
+.section-light ::selection {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.vertical-rl {
+  writing-mode: vertical-rl;
+}
+
+/* ---------------------------------------------------------------
+   Motion
+   --------------------------------------------------------------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-y, 1.75rem), 0);
+  transition:
+    opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.75s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-scroll var(--marquee-duration, 42s) linear infinite;
+}
+
+.marquee-track[data-direction="reverse"] {
+  animation-direction: reverse;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Barra de progreso de scroll sin JavaScript: aparece sólo donde el navegador
+   soporta scroll-driven animations. */
+.scroll-progress {
+  transform-origin: 0 50%;
+  scale: 0 1;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-progress linear;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes scroll-progress {
+  from {
+    scale: 0 1;
+  }
+  to {
+    scale: 1 1;
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.82);
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .marquee-track,
+  .pulse-dot {
+    animation: none;
+  }
 }

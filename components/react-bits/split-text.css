@@ -1,0 +1,9 @@
+.split-parent .split-word,
+.split-parent .split-char {
+  display: inline-block;
+}
+
+.split-parent .split-line {
+  display: block;
+  overflow: hidden;
+}
