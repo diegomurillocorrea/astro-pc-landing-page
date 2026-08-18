@@ -23,7 +23,7 @@ const cardTone = [
     price: "text-ink",
     meta: "text-ink/68",
     body: "text-ink/70",
-    mark: "text-cobalt",
+    mark: "text-navy",
     buttonVariant: "ink" as const,
     badge: "bg-ink text-mint",
   },

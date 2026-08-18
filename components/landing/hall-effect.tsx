@@ -23,8 +23,8 @@ export function HallEffect() {
 
       <div className="shell relative">
         <div className="flex items-center gap-4 border-b border-ink/15 pb-5">
-          <Sparkle className="size-3.5 text-cobalt" />
-          <p className="t-label text-cobalt">{hallEffect.eyebrow}</p>
+          <Sparkle className="size-3.5 text-navy" />
+          <p className="t-label text-navy">{hallEffect.eyebrow}</p>
           <span className="t-label ml-auto text-ink/68">§ 03</span>
         </div>
 
@@ -52,7 +52,7 @@ export function HallEffect() {
               <WhatsAppButton messageKey="joysticks" variant="ink">
                 {hallEffect.cta}
               </WhatsAppButton>
-              <p className="flex items-center gap-2 text-sm font-semibold text-cobalt">
+              <p className="flex items-center gap-2 text-sm font-semibold text-navy">
                 <Brackets className="size-4" />
                 {hallEffect.exclusive}
               </p>
@@ -61,7 +61,7 @@ export function HallEffect() {
 
           <Reveal delay={120} className="lg:col-span-5">
             <div className="flex items-end gap-4 border-t-4 border-ink pt-6">
-              <span className="t-numeral text-cobalt">
+              <span className="t-numeral text-navy">
                 {hallEffect.metric.value}
               </span>
               <span className="t-heading pb-2 text-[clamp(1.5rem,3vw,2.25rem)] uppercase text-ink">
