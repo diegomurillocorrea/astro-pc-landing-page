@@ -1,10 +1,10 @@
-import { Plus, Sparkle } from "@/components/landing/marks";
+import { ArrowRight, Plus, Sparkle } from "@/components/landing/marks";
 import { Reveal } from "@/components/landing/reveal";
 import { WhatsAppButton } from "@/components/landing/whatsapp-button";
 import {
-  coverageNote,
   joystickService,
   maintenanceServices,
+  quoteCopy,
   serviceCta,
 } from "@/lib/landing-content";
 
@@ -160,18 +160,26 @@ export function Services() {
           </Reveal>
 
           <Reveal
-            as="aside"
             delay={260}
-            className="relative overflow-hidden bg-mint p-7 text-navy sm:p-9 lg:col-span-4"
+            className="lg:col-span-4"
           >
-            <Sparkle className="pointer-events-none absolute -bottom-12 -right-10 size-48 text-navy/10" />
-            <p className="t-label">Cobertura</p>
-            <p className="t-heading mt-6 text-[clamp(1.5rem,2.6vw,2rem)] uppercase">
-              Zona central de San Salvador
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-navy">
-              {coverageNote}
-            </p>
+            <a
+              href="#cobertura"
+              className="group relative flex h-full flex-col overflow-hidden bg-mint p-7 text-navy sm:p-9"
+            >
+              <Sparkle className="pointer-events-none absolute -bottom-12 -right-10 size-48 text-navy/10" />
+              <p className="t-label">Cobertura</p>
+              <p className="t-heading mt-6 text-[clamp(1.5rem,2.6vw,2rem)] uppercase">
+              Municipios cubiertos
+              </p>
+              <p className="mt-4 text-sm leading-relaxed text-navy">
+                {quoteCopy.coverageTeaser}
+              </p>
+              <span className="mt-8 inline-flex items-center gap-2 font-display text-sm font-bold uppercase tracking-[0.04em]">
+                {quoteCopy.coverageCta}
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </span>
+            </a>
           </Reveal>
         </div>
       </div>

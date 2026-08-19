@@ -25,7 +25,7 @@ export function HallEffect() {
         <div className="flex items-center gap-4 border-b border-ink/15 pb-5">
           <Sparkle className="size-3.5 text-navy" />
           <p className="t-label text-navy">{hallEffect.eyebrow}</p>
-          <span className="t-label ml-auto text-ink/68">§ 03</span>
+          <span className="t-label ml-auto text-ink/68">§ 04</span>
         </div>
 
         <div className="mt-12 grid gap-14 lg:grid-cols-12 lg:gap-10">

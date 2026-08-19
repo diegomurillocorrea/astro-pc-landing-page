@@ -16,7 +16,7 @@ export function Process() {
           <div>
             <Reveal className="flex items-center gap-3 text-mint">
               <Sparkle className="size-3.5" />
-              <p className="t-label">Cómo trabajamos · § 05</p>
+              <p className="t-label">Cómo trabajamos · § 06</p>
             </Reveal>
             <Reveal delay={80}>
               <h2 className="t-section mt-5 text-paper">

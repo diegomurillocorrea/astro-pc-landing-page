@@ -3,7 +3,6 @@ import { WhatsAppIcon } from "@/components/landing/whatsapp-icon";
 import { getWhatsAppUrl, type WhatsAppMessageKey } from "@/lib/whatsapp";
 
 type WhatsAppButtonProps = {
-  messageKey: WhatsAppMessageKey;
   children: React.ReactNode;
   /**
    * `primary` cápsula de alto contraste · `outline` bloque cuadrado sobre fondo
@@ -11,6 +10,10 @@ type WhatsAppButtonProps = {
    */
   variant?: "primary" | "outline" | "ink" | "compact";
   className?: string;
+  /** Mensaje precargado del catálogo. Ignorado si pasas `href`. */
+  messageKey?: WhatsAppMessageKey;
+  /** URL ya armada (cotizador u otro texto libre). */
+  href?: string;
 };
 
 const base =
@@ -34,16 +37,18 @@ const iconWrapClass = {
 } as const;
 
 export function WhatsAppButton({
-  messageKey,
+  messageKey = "schedule",
+  href,
   children,
   variant = "primary",
   className = "",
 }: WhatsAppButtonProps) {
   const isOutline = variant === "outline";
+  const url = href ?? getWhatsAppUrl(messageKey);
 
   return (
     <a
-      href={getWhatsAppUrl(messageKey)}
+      href={url}
       target="_blank"
       rel="noopener noreferrer"
       className={`${base} ${variantClass[variant]} ${className}`}

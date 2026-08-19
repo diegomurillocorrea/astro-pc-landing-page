@@ -32,16 +32,19 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Agendar visita por WhatsApp"
-      className={`group fixed bottom-5 right-5 z-40 flex h-14 items-center rounded-full bg-mint pl-4 pr-4 text-navy shadow-[0_18px_44px_-18px_color-mix(in_srgb,var(--mint)_75%,transparent)] transition-[opacity,background-color] duration-200 hover:bg-paper ${
-        isCtaVisible ? "pointer-events-none opacity-0" : "opacity-100"
+      className={`fab-pulse group fixed z-40 inline-flex h-14 items-center rounded-full bg-mint pr-5 pl-3 text-navy shadow-[0_18px_44px_-18px_color-mix(in_srgb,var(--mint)_75%,transparent)] transition-[opacity,background-color,transform] duration-200 hover:bg-paper ${
+        isCtaVisible
+          ? "pointer-events-none translate-y-3 opacity-0"
+          : "opacity-100"
       }`}
+      style={{
+        bottom: "max(1.25rem, env(safe-area-inset-bottom, 0px))",
+        right: "max(1.25rem, env(safe-area-inset-right, 0px))",
+      }}
     >
       <WhatsAppIcon className="size-7 shrink-0" />
-      <span
-        aria-hidden="true"
-        className="hidden max-w-0 overflow-hidden whitespace-nowrap font-display text-sm font-bold uppercase tracking-wide transition-[max-width,padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:max-w-40 group-hover:pl-3 sm:block"
-      >
-        Agendar visita
+      <span className="pl-3 font-display text-sm font-bold uppercase tracking-wide">
+        Agendar
       </span>
     </a>
   );

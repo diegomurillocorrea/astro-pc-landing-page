@@ -42,7 +42,7 @@ export function Benefits() {
           <div>
             <Reveal className="flex items-center gap-3 text-mint">
               <Sparkle className="size-3.5" />
-              <p className="t-label">Sin llevar nada al taller · § 04</p>
+              <p className="t-label">Sin llevar nada al taller · § 05</p>
             </Reveal>
             <Reveal delay={80}>
               <h2 className="t-section mt-5 max-w-3xl text-paper">

@@ -122,8 +122,15 @@ export function Hero() {
             <p className="text-lg leading-relaxed text-paper/75 sm:text-xl">
               {hero.subtitle}
             </p>
-            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:flex-wrap">
               <WhatsAppButton messageKey="schedule">{hero.cta}</WhatsAppButton>
+              <a
+                href="#cotizar"
+                className="group inline-flex items-center gap-2 border-b border-mint/40 pb-1 font-display text-sm font-bold uppercase tracking-[0.04em] text-mint transition-colors hover:border-mint hover:text-paper"
+              >
+                {hero.quoteCta}
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              </a>
               <a
                 href="#servicios"
                 className="group inline-flex items-center gap-2 border-b border-paper/25 pb-1 font-display text-sm font-bold uppercase tracking-[0.04em] text-paper transition-colors hover:border-mint hover:text-mint"

@@ -267,6 +267,33 @@ details summary::-webkit-details-marker {
   }
 }
 
+.fab-pulse::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1.5px solid color-mix(in srgb, var(--mint) 55%, transparent);
+  animation: fab-ring 2.6s ease-out infinite;
+}
+
+@keyframes fab-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  100% {
+    transform: scale(1.16);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .fab-pulse::before {
+    content: none;
+    animation: none;
+  }
+}
+
 .no-scrollbar {
   scrollbar-width: none;
 }
@@ -287,7 +314,8 @@ details summary::-webkit-details-marker {
   }
 
   .marquee-track,
-  .pulse-dot {
+  .pulse-dot,
+  .fab-pulse::before {
     animation: none;
   }
 }

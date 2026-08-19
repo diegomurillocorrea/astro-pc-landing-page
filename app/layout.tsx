@@ -32,7 +32,9 @@ export const metadata: Metadata = {
     "DualSense",
     "efecto Hall",
     "San Salvador",
+    "Santa Tecla",
     "servicio a domicilio",
+    "cotizador",
   ],
   icons: {
     icon: "/astro-pc-logo.png",
@@ -50,6 +52,7 @@ export const viewport: Viewport = {
   themeColor: "#052743",
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

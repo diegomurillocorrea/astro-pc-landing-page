@@ -9,6 +9,7 @@ export const brand = {
 
 export const navLinks = [
   { href: "#servicios", label: "Servicios" },
+  { href: "#cotizar", label: "Cotizar" },
   { href: "#efecto-hall", label: "Efecto Hall" },
   { href: "#proceso", label: "Proceso" },
   { href: "#preguntas", label: "Preguntas" },
@@ -34,6 +35,7 @@ export const hero = {
     "Llevamos el mantenimiento técnico especializado hasta la puerta de tu casa en San Salvador y alrededores.",
   cta: "Agendar Visita por WhatsApp",
   secondaryCta: "Ver servicios y precios",
+  quoteCta: "Cotizar en 3 pasos",
   status: "Agenda abierta",
 } as const;
 
@@ -88,7 +90,7 @@ export const metrics = [
   {
     value: "$65",
     label: "Precio fijo",
-    note: "Mantenimiento preventivo de PS5 o PC Gamer en la zona central de San Salvador.",
+    note: "Mantenimiento preventivo de PS5 o PC Gamer en zona central y metropolitana, sin recargo.",
   },
   {
     value: "04",
@@ -103,13 +105,148 @@ export const metrics = [
 ] as const;
 
 export const coverageNote =
-  "Los precios listados aplican a la zona central de San Salvador. Fuera del casco urbano se aplica un recargo por traslado según la distancia.";
+  "La tarifa publicada cubre la zona central y metropolitana, sin recargo. El resto suma un recargo fijo de traslado según la matriz. Costas, oriente, paracentral, norte y occidente profundo no tienen servicio.";
+
+export const coverageZones = [
+  {
+    id: "central",
+    name: "Central y metropolitana",
+    surchargeLabel: "Sin recargo",
+    surcharge: 0,
+    covered: true,
+    note: "Tarifa publicada. Incluye Gran San Salvador y casco urbano de Sonsonate, Izalco y Sonzacate.",
+    municipalities: [
+      {
+        name: "San Salvador Centro",
+        note: "Escalón, San Benito, Miramonte, Miralvalle, Autopista Sur, Centro Histórico",
+      },
+      {
+        name: "Antiguo Cuscatlán",
+        note: "Santa Elena, Merliot",
+      },
+      { name: "Santa Tecla" },
+      { name: "Vía del Mar" },
+      { name: "Apopa" },
+      { name: "Nejapa" },
+      { name: "Mejicanos" },
+      { name: "Cuscatancingo" },
+      { name: "Ciudad Delgado" },
+      { name: "Ayutuxtepeque" },
+      { name: "Soyapango" },
+      { name: "Sonsonate", note: "Casco urbano" },
+      { name: "Izalco" },
+      { name: "Sonzacate" },
+    ],
+  },
+  {
+    id: "periferica-1",
+    name: "Periférica nivel 1",
+    surchargeLabel: "+$5",
+    surcharge: 5,
+    covered: true,
+    note: "Recargo fijo de traslado.",
+    municipalities: [
+      { name: "Nuevo Cuscatlán" },
+      { name: "San Marcos" },
+      { name: "Santo Tomás" },
+      { name: "Planes de Renderos" },
+    ],
+  },
+  {
+    id: "periferica-2",
+    name: "Periférica nivel 2",
+    surchargeLabel: "+$10",
+    surcharge: 10,
+    covered: true,
+    note: "Recargo fijo de traslado.",
+    municipalities: [
+      { name: "Lourdes" },
+      { name: "Zaragoza" },
+      { name: "Ilopango" },
+      { name: "San Martín" },
+      { name: "Juan Opico", note: "Casco urbano" },
+      { name: "Cojutepeque" },
+    ],
+  },
+  {
+    id: "departamental",
+    name: "Departamental especial",
+    surchargeLabel: "+$20",
+    surcharge: 20,
+    covered: true,
+    note: "Únicamente casco urbano.",
+    municipalities: [{ name: "Santa Ana", note: "Únicamente casco urbano" }],
+  },
+] as const;
+
+export const coverageExcluded = {
+  id: "excluded",
+  name: "Fuera de cobertura",
+  surchargeLabel: "Sin servicio",
+  surcharge: null,
+  covered: false,
+  note: "No visitamos costas, oriente, paracentral, norte ni occidente profundo.",
+  municipalities: [
+    {
+      name: "Zonas costeras y playas",
+      note: "Surf City, El Tunco, Costa del Sol, Majahual, Metalío",
+    },
+    {
+      name: "Zona Oriental",
+      note: "San Miguel, Usulután, Morazán, La Unión",
+    },
+    {
+      name: "Zona Paracentral",
+      note: "San Vicente, Cabañas",
+    },
+    { name: "Zona Norte", note: "Chalatenango" },
+    {
+      name: "Occidente profundo",
+      note: "Ahuachapán, Ataco, Apaneca, Metapán, Chalchuapa, El Congo, Coatepeque",
+    },
+  ],
+} as const;
+
+export const quoteCopy = {
+  eyebrow: "Cotizador · § 03",
+  titleLead: "Cotiza",
+  titleTrail: "en tres pasos",
+  body: "Elige equipo y municipio. El recargo de traslado es tarifa fija según la matriz de cobertura.",
+  steps: [
+    { code: "01", label: "Equipo" },
+    { code: "02", label: "Zona" },
+    { code: "03", label: "Precio" },
+  ],
+  equipmentLegend: "Elige tu equipo",
+  dualsenseLegend: "Configuración del mando",
+  zoneLegend: "Elige tu zona",
+  municipalityLegend: "Municipio o distrito",
+  resultLabel: "Precio estimado",
+  resultEmpty: "Elige equipo y zona para ver el estimado.",
+  resultUncovered: "Sin servicio",
+  uncoveredBody:
+    "Esta zona está fuera de cobertura. No agendamos visitas en costas, oriente, paracentral, norte ni occidente profundo.",
+  baseLabel: "Servicio",
+  surchargeLabel: "Traslado",
+  disclaimer:
+    "El recargo de traslado es tarifa fija. DualSense se cotiza en rango según palancas.",
+  cta: "Confirmar por WhatsApp",
+  coverageEyebrow: "Cobertura",
+  coverageTitle: "Matriz de zonas y tarifas",
+  coverageBody:
+    "Recargo fijo por zona. Si tu colonia está dentro de un municipio cubierto, el recargo es el de esa categoría.",
+  coverageMapLabel: "Tarifas de traslado",
+  coverageTeaser:
+    "Sin recargo en Gran San Salvador, Santa Tecla y Soyapango. +$5, +$10 o +$20 según zona.",
+  coverageCta: "Ver matriz de cobertura",
+} as const;
 
 export const maintenanceServices = [
   {
     id: "ps5",
     title: "Mantenimiento Preventivo de PS5",
     price: "$65.00",
+    amount: 65,
     whatsappKey: "ps5" as const,
     items: [
       "Limpieza profunda de polvo en disipadores y conductos de ventilación.",
@@ -121,6 +258,7 @@ export const maintenanceServices = [
     id: "pc",
     title: "Mantenimiento Preventivo de PC Gamer",
     price: "$65.00",
+    amount: 65,
     whatsappKey: "pc" as const,
     items: [
       "Desmonte técnico y limpieza profunda de componentes (ventiladores, tarjeta gráfica, tarjeta madre y fuente).",
@@ -138,9 +276,27 @@ export const joystickService = {
     "Reemplazo de módulos analógicos por tecnología de efecto Hall: sensores magnéticos que eliminan la deriva de forma permanente. Exclusivo para mandos de PS5.",
   whatsappKey: "joysticks" as const,
   tiers: [
-    { label: "1 mando (1 palanca)", price: "$25.00 – $30.00" },
-    { label: "1 mando (2 palancas)", price: "$35.00 – $40.00" },
-    { label: "2 mandos (1 palanca c/u)", price: "$45.00 – $50.00" },
+    {
+      id: "one-stick",
+      label: "1 mando (1 palanca)",
+      price: "$25.00 – $30.00",
+      min: 25,
+      max: 30,
+    },
+    {
+      id: "two-sticks",
+      label: "1 mando (2 palancas)",
+      price: "$35.00 – $40.00",
+      min: 35,
+      max: 40,
+    },
+    {
+      id: "two-pads",
+      label: "2 mandos (1 palanca c/u)",
+      price: "$45.00 – $50.00",
+      min: 45,
+      max: 50,
+    },
   ],
 } as const;
 
@@ -243,7 +399,7 @@ export const faqs = [
   {
     question: "¿Hay recargo si no vivo en San Salvador centro?",
     answer:
-      "Sí. La tarifa publicada cubre la zona central de San Salvador. Para zonas periféricas o departamentos se suma un recargo de traslado según la distancia.",
+      "Santa Tecla, Antiguo Cuscatlán, Soyapango, Apopa y el resto de la zona central y metropolitana no tienen recargo. Periferia nivel 1 suma $5, nivel 2 suma $10 y Santa Ana (casco urbano) suma $20. Costas, oriente, paracentral, norte y occidente profundo no tienen servicio. Lo ves en Cotizar.",
   },
   {
     question: "¿Atienden PS4, Xbox o Switch?",

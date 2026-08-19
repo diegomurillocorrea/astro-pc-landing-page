@@ -144,7 +144,7 @@ export function Header() {
           </a>
 
           <nav aria-label="Principal" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
+            <ul className="flex items-center gap-5 xl:gap-7">
               {navLinks.map((link, index) => (
                 <NavItem
                   key={link.href}

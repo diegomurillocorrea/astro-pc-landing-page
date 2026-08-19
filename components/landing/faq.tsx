@@ -17,7 +17,7 @@ export function Faq() {
         <div className="border-b border-paper/12 pb-10">
           <Reveal className="flex items-center gap-3 text-mint">
             <Sparkle className="size-3.5" />
-            <p className="t-label">Respaldo · § 06</p>
+            <p className="t-label">Respaldo · § 07</p>
           </Reveal>
           <Reveal delay={80}>
             <h2 className="t-section mt-5 text-paper">

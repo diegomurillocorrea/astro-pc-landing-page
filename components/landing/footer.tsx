@@ -7,6 +7,8 @@ const serviceLinks = [
   { label: "Mantenimiento PS5", href: "#servicios" },
   { label: "Mantenimiento PC Gamer", href: "#servicios" },
   { label: "Palancas con efecto Hall", href: "#efecto-hall" },
+  { label: "Cotizar visita", href: "#cotizar" },
+  { label: "Cobertura por zonas", href: "#cobertura" },
 ];
 
 type FooterColumnProps = {

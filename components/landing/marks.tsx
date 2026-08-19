@@ -43,6 +43,22 @@ export function ArrowRight({ className = "size-4" }: MarkProps) {
   );
 }
 
+export function Check({ className = "size-4" }: MarkProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="square"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M4 12.5 9.5 18 20 6" />
+    </svg>
+  );
+}
+
 export function Plus({ className = "size-4" }: MarkProps) {
   return (
     <svg
