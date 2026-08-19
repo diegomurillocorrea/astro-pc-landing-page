@@ -37,15 +37,18 @@ export const metadata: Metadata = {
     "a domicilio",
     "en tu casa",
   ],
-  icons: {
-    icon: "/astro-logo.png",
-  },
   openGraph: {
     title: "Astro PC | Mantenimiento a PS5, DualSense y PC gamer a domicilio",
     description:
       "Mantenimiento a PS5, DualSense de PS5 y PC gamer a domicilio. Vamos a tu casa en San Salvador, no en todos los distritos.",
     locale: "es_SV",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Astro PC | Mantenimiento a PS5, DualSense y PC gamer a domicilio",
+    description:
+      "Mantenimiento a PS5, DualSense de PS5 y PC gamer a domicilio. Vamos a tu casa en San Salvador, no en todos los distritos.",
   },
 };
 
