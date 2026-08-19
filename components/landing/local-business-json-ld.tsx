@@ -1,4 +1,4 @@
-import { brand } from "@/lib/landing-content";
+import { brand, contact } from "@/lib/landing-content";
 import { getE164Phone } from "@/lib/whatsapp";
 
 /**
@@ -30,9 +30,9 @@ export function LocalBusinessJsonLd() {
         "Thursday",
         "Friday",
         "Saturday",
+        "Sunday",
       ],
-      opens: "08:00",
-      closes: "18:00",
+      description: contact.hours,
     },
   };
 

@@ -11,9 +11,8 @@ export const contact = {
   callLabel: "Llamar",
   whatsappLabel: "WhatsApp",
   hoursLabel: "Horario",
-  hours: "Lunes a sábado, 8:00 a.m. a 6:00 p.m.",
-  hoursShort: "Lun–sáb, 8:00 a.m. a 6:00 p.m.",
-  closed: "Domingo no agendamos.",
+  hours: "Lunes a domingo, según cupos disponibles.",
+  hoursShort: "Lun–dom, según cupos",
   response: "En WhatsApp o por llamada respondemos el mismo día, en horario de atención.",
   responseShort: "Respondemos el mismo día",
 } as const;
@@ -283,7 +282,7 @@ export const faqs = [
   {
     question: "¿A qué hora atienden y cómo los contacto?",
     answer:
-      "De lunes a sábado, de 8:00 a.m. a 6:00 p.m. Domingo no agendamos. WhatsApp y la llamada van al mismo número: lo ves en el menú, en el cierre y en el pie. En horario de atención respondemos el mismo día. WhatsApp es lo más rápido para agendar.",
+      "De lunes a domingo, según cupos disponibles. WhatsApp y la llamada van al mismo número: lo ves en el menú, en el cierre y en el pie. En horario de atención respondemos el mismo día. WhatsApp es lo más rápido para agendar.",
   },
   {
     question: "¿Van a todos los distritos de San Salvador?",

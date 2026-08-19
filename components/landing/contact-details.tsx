@@ -73,7 +73,7 @@ export function ContactDetails({
           {contact.hoursLabel}
         </span>
         <span className={`mt-1 block text-sm leading-relaxed ${colors.meta}`}>
-          {contact.hours} {contact.closed}
+          {contact.hours}
         </span>
       </p>
       <p className={`mt-3 text-sm leading-relaxed ${colors.meta}`}>

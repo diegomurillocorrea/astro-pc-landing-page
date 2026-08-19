@@ -190,7 +190,7 @@ export function Header() {
           openMenuButtonColor={MINT}
           changeMenuColorOnOpen
           socialsTitle="Contacto"
-          socialNote={`${contact.hours} ${contact.closed}`}
+          socialNote={contact.hours}
         />
       </div>
     </>
