@@ -55,7 +55,7 @@ export function Services() {
           </Reveal>
           <Reveal delay={80} className="max-w-sm">
             <p className="text-base leading-relaxed text-paper/70">
-              Precio fijo para PS5 y PC. El mando se cotiza según cuántas
+              Desde $65 para PS5 y PC. El mando se cotiza según cuántas
               palancas hay que cambiar.
             </p>
           </Reveal>
@@ -81,7 +81,7 @@ export function Services() {
                   <span
                     className={`absolute top-6 right-6 rounded-full px-3 py-1 text-xs font-semibold ${tone.badge}`}
                   >
-                    Precio fijo
+                    Desde
                   </span>
                   <h3 className="t-heading relative max-w-[16ch] text-[clamp(1.375rem,2.4vw,1.875rem)] uppercase">
                     {service.title}

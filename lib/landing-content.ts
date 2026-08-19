@@ -50,12 +50,12 @@ export const marqueeItems = [
   "Pasta térmica",
   "En tu casa",
   "San Salvador",
-  "Precio fijo",
+  "Desde $65",
 ] as const;
 
 export const specialization = {
   headline: "Tres equipos. Nada más.",
-  body: "Solo trabajamos PS5, PC gamer y el mando DualSense de PS5. Así el trabajo sale bien. No metemos PS4, Xbox, Nintendo Switch ni consolas viejas.",
+  body: "Solo trabajamos PS5, PC gamer y el mando DualSense de PS5. Así el trabajo sale bien. No metemos PS4, Xbox, Nintendo Switch ni consola vintage.",
   supported: [
     {
       code: "01",
@@ -77,7 +77,7 @@ export const specialization = {
     },
   ],
   excludedTitle: "Esto no lo atendemos",
-  excluded: ["PS4", "Xbox", "Nintendo Switch", "Consolas viejas"],
+  excluded: ["PS4", "Xbox", "Nintendo Switch", "Consola vintage"],
   excludedNote: "Mejor te lo decimos ahora, para que no pierdas el tiempo escribiendo.",
 } as const;
 
