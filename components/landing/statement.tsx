@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import SplitText from "@/components/react-bits/split-text";
 import {
   DualSenseMark,
@@ -24,7 +25,10 @@ export function Statement() {
       <LandingTextLoop />
 
       <div className="shell relative py-20 sm:py-28">
-        <div className="@container min-w-0" style={{ "--display-size": HEADLINE_SIZE }}>
+        <div
+          className="@container min-w-0"
+          style={{ "--display-size": HEADLINE_SIZE } as CSSProperties}
+        >
           <SplitText
             tag="h2"
             text={specialization.headline}

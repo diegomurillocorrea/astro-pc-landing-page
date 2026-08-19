@@ -1,17 +1,19 @@
 "use client";
 
 import {
+  createElement,
   useEffect,
   useState,
   type CSSProperties,
-  type ElementType,
   type ReactNode,
 } from "react";
+
+type RevealTag = "div" | "span" | "article" | "ul" | "li";
 
 type RevealProps = {
   children: ReactNode;
   /** Etiqueta a renderizar. Por defecto `div`. */
-  as?: ElementType;
+  as?: RevealTag;
   /** Retraso en ms para escalonar grupos de elementos. */
   delay?: number;
   /** Desplazamiento inicial en el eje Y (por defecto 1.75rem). */
@@ -33,7 +35,7 @@ export function Reveal({
   className,
   style,
 }: RevealProps) {
-  const Tag = (as ?? "div") as ElementType;
+  const Tag = as ?? "div";
   const [node, setNode] = useState<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -65,20 +67,18 @@ export function Reveal({
     return () => observer.disconnect();
   }, [node]);
 
-  return (
-    <Tag
-      ref={setNode}
-      data-reveal={isVisible ? "in" : "out"}
-      className={className}
-      style={
-        {
-          "--reveal-delay": `${delay}ms`,
-          ...(distance ? { "--reveal-y": distance } : null),
-          ...style,
-        } as CSSProperties
-      }
-    >
-      {children}
-    </Tag>
+  return createElement(
+    Tag,
+    {
+      ref: setNode,
+      "data-reveal": isVisible ? "in" : "out",
+      className,
+      style: {
+        "--reveal-delay": `${delay}ms`,
+        ...(distance ? { "--reveal-y": distance } : null),
+        ...style,
+      } as CSSProperties,
+    },
+    children,
   );
 }

@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties, type ElementType } from "react";
+import {
+  createElement,
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
@@ -189,11 +195,13 @@ export default function SplitText({
     wordWrap: isNowrap ? "normal" : "break-word",
     willChange: prefersReducedMotion ? "auto" : "transform, opacity",
   };
-  const Tag = (tag || "p") as ElementType;
-
-  return (
-    <Tag ref={ref} style={style} className={`split-parent ${className}`}>
-      {text}
-    </Tag>
+  return createElement(
+    tag,
+    {
+      ref,
+      style,
+      className: `split-parent ${className}`,
+    },
+    text,
   );
 }
