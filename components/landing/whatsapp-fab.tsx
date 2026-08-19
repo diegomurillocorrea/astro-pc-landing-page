@@ -4,25 +4,42 @@ import { useEffect, useState } from "react";
 import { WhatsAppIcon } from "@/components/landing/whatsapp-icon";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 
+/**
+ * Flotante de WhatsApp: se oculta en el hero (ya hay CTA) y en el cierre
+ * (CTA a todo lo ancho). Solo icono para no tapar el contenido.
+ */
 export function WhatsAppFab() {
-  const [isCtaVisible, setIsCtaVisible] = useState(false);
+  const [isHidden, setIsHidden] = useState(true);
 
   useEffect(() => {
+    const hero = document.getElementById("inicio");
     const cta = document.getElementById("cierre");
+    const targets = [hero, cta].filter((node): node is HTMLElement =>
+      node instanceof HTMLElement,
+    );
 
-    if (!cta) {
+    if (targets.length === 0) {
       return;
     }
 
+    const intersecting = new Set<string>();
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsCtaVisible(entry.isIntersecting);
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            intersecting.add(entry.target.id);
+          } else {
+            intersecting.delete(entry.target.id);
+          }
+        }
+
+        setIsHidden(intersecting.size > 0);
       },
       { threshold: 0.28 },
     );
 
-    observer.observe(cta);
-
+    targets.forEach((node) => observer.observe(node));
     return () => observer.disconnect();
   }, []);
 
@@ -32,8 +49,8 @@ export function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Agendar visita por WhatsApp"
-      className={`fab-pulse group fixed z-40 inline-flex h-14 items-center rounded-full bg-mint pr-5 pl-3 text-navy shadow-[0_18px_44px_-18px_color-mix(in_srgb,var(--mint)_75%,transparent)] transition-[opacity,background-color,transform] duration-200 hover:bg-paper ${
-        isCtaVisible
+      className={`fab-pulse group fixed z-40 grid size-14 place-items-center rounded-full bg-mint text-navy transition-[opacity,background-color,transform] duration-200 hover:bg-paper ${
+        isHidden
           ? "pointer-events-none translate-y-3 opacity-0"
           : "opacity-100"
       }`}
@@ -42,10 +59,7 @@ export function WhatsAppFab() {
         right: "max(1.25rem, env(safe-area-inset-right, 0px))",
       }}
     >
-      <WhatsAppIcon className="size-7 shrink-0" />
-      <span className="pl-3 font-display text-sm font-bold uppercase tracking-wide">
-        Agendar
-      </span>
+      <WhatsAppIcon className="size-7" />
     </a>
   );
 }

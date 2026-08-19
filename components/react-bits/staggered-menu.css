@@ -60,7 +60,7 @@
 
 .sm-logo-name {
   color: #ffffff;
-  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   font-size: 1.125rem;
   letter-spacing: -0.02em;
@@ -251,6 +251,7 @@
 .sm-panel-item {
   position: relative;
   color: #ffffff;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   font-size: clamp(2rem, 8vw, 3.25rem);
   cursor: pointer;
@@ -303,8 +304,9 @@
   position: absolute;
   top: 0.15em;
   right: 0;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--sm-accent, #c3ffdc);
   letter-spacing: 0;
   pointer-events: none;

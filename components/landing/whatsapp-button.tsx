@@ -17,7 +17,7 @@ type WhatsAppButtonProps = {
 };
 
 const base =
-  "group/btn inline-flex items-center justify-center gap-3 font-display font-bold uppercase tracking-[0.06em] transition-[background-color,color,border-color,transform] duration-200 active:translate-y-px";
+  "group/btn inline-flex items-center justify-center gap-3 font-sans font-semibold uppercase tracking-[0.06em] transition-[background-color,color,border-color,transform] duration-200 active:translate-y-px";
 
 const variantClass = {
   primary:

@@ -113,7 +113,7 @@ export function formatUsdRange(range: MoneyRange): string {
 
 export function formatSurcharge(amount: number): string {
   if (amount === 0) {
-    return "sin recargo";
+    return "viaje incluido";
   }
 
   return `+${formatUsd(amount)}`;
@@ -151,8 +151,8 @@ export function buildQuoteMessage({
       : serviceLabel;
 
   if (surcharge === 0) {
-    return `Hola Astro PC, quiero agendar: ${service} en ${place}. Precio ${formatUsdRange(totalRange)} (sin recargo de traslado). ¿Me confirman disponibilidad?`;
+    return `Hola Astro PC, quiero agendar: ${service} en ${place}. Precio ${formatUsdRange(totalRange)} (viaje incluido). ¿Qué día pueden?`;
   }
 
-  return `Hola Astro PC, quiero agendar: ${service} en ${place}. Precio ${formatUsdRange(totalRange)} (servicio ${formatUsdRange(baseRange)} + traslado ${formatUsd(surcharge)}). ¿Me confirman disponibilidad?`;
+  return `Hola Astro PC, quiero agendar: ${service} en ${place}. Precio ${formatUsdRange(totalRange)} (servicio ${formatUsdRange(baseRange)} + viaje ${formatUsd(surcharge)}). ¿Qué día pueden?`;
 }

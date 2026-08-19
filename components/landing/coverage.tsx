@@ -1,4 +1,3 @@
-import { Sparkle } from "@/components/landing/marks";
 import { Reveal } from "@/components/landing/reveal";
 import {
   coverageExcluded,
@@ -45,40 +44,20 @@ const rowTone = [
 export function Coverage() {
   return (
     <div id="cobertura" className="scroll-mt-24">
-      <div className="flex flex-col gap-6 border-b border-paper/12 pb-8 lg:flex-row lg:items-end lg:justify-between">
-        <div>
-          <Reveal className="flex items-center gap-3 text-mint">
-            <Sparkle className="size-3.5" />
-            <p className="t-label">{quoteCopy.coverageEyebrow}</p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h3 className="t-heading mt-4 text-[clamp(1.5rem,3vw,2.25rem)] uppercase text-paper">
-              {quoteCopy.coverageTitle}
-            </h3>
-          </Reveal>
-        </div>
-        <Reveal delay={140} className="max-w-md">
+      <div className="flex flex-col gap-4 border-b border-paper/12 pb-8 lg:flex-row lg:items-end lg:justify-between">
+        <Reveal>
+          <h3 className="t-heading text-[clamp(1.5rem,3vw,2.25rem)] uppercase text-paper">
+            {quoteCopy.coverageTitle}
+          </h3>
+        </Reveal>
+        <Reveal delay={80} className="max-w-md">
           <p className="text-sm leading-relaxed text-paper/62">
             {quoteCopy.coverageBody}
           </p>
         </Reveal>
       </div>
 
-      <Reveal className="mt-8 flex flex-wrap gap-2">
-        {matrixRows.map((zone) => (
-          <span
-            key={zone.id}
-            className="border border-paper/15 px-3 py-1.5 font-display text-xs font-bold uppercase tracking-wide text-paper/80"
-          >
-            {zone.surchargeLabel}
-            <span className="ml-2 font-sans font-normal normal-case tracking-normal text-paper/55">
-              {zone.name}
-            </span>
-          </span>
-        ))}
-      </Reveal>
-
-      <div className="mt-6 grid gap-3">
+      <div className="mt-6 grid gap-2">
         {matrixRows.map((zone, index) => {
           const tone = rowTone[index] ?? rowTone[1];
 
@@ -86,42 +65,54 @@ export function Coverage() {
             <Reveal
               as="article"
               key={zone.id}
-              delay={index * 70}
-              className={`p-6 sm:p-7 ${tone.shell}`}
+              delay={index * 50}
+              className={tone.shell}
             >
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className={`t-label ${tone.note}`}>Zona 0{index + 1}</p>
-                  <h4 className="t-heading mt-2 text-[clamp(1.125rem,2vw,1.5rem)] uppercase">
-                    {zone.name}
-                  </h4>
-                  <p className={`mt-2 max-w-xl text-sm leading-relaxed ${tone.note}`}>
-                    {zone.note}
-                  </p>
-                </div>
-                <span
-                  className={`t-label shrink-0 px-3 py-2 ${tone.badge}`}
-                >
-                  {zone.surchargeLabel}
-                </span>
-              </div>
-              <ul className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {zone.municipalities.map((place) => (
-                  <li
-                    key={place.name}
-                    className={`border px-3 py-2 ${tone.chip}`}
-                  >
-                    <span className="block font-display text-xs font-bold uppercase tracking-wide">
-                      {place.name}
+              <details className="group">
+                <summary className="flex cursor-pointer list-none items-center gap-4 px-5 py-4 sm:px-6">
+                  <span className="min-w-0 flex-1">
+                    <span className="t-heading block text-[clamp(1rem,1.8vw,1.25rem)] uppercase">
+                      {zone.name}
                     </span>
-                    {"note" in place && place.note ? (
-                      <span className={`mt-1 block text-[0.7rem] leading-snug ${tone.note}`}>
-                        {place.note}
-                      </span>
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
+                    <span className={`mt-1 block text-xs leading-snug ${tone.note}`}>
+                      {zone.note}
+                    </span>
+                  </span>
+                  <span className={`shrink-0 px-3 py-2 text-xs font-semibold ${tone.badge}`}>
+                    {zone.surchargeLabel}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`hidden shrink-0 text-sm sm:inline ${tone.note} transition-transform duration-200 group-open:rotate-45`}
+                  >
+                    +
+                  </span>
+                </summary>
+                <div className="px-5 pb-5 sm:px-6">
+                  <p className={`mb-3 text-xs ${tone.note}`}>
+                    {quoteCopy.coverageToggle}
+                  </p>
+                  <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    {zone.municipalities.map((place) => (
+                      <li
+                        key={place.name}
+                        className={`border px-3 py-2 ${tone.chip}`}
+                      >
+                        <span className="block font-sans text-xs font-semibold uppercase tracking-wide">
+                          {place.name}
+                        </span>
+                        {"note" in place && place.note ? (
+                          <span
+                            className={`mt-1 block text-[0.7rem] leading-snug ${tone.note}`}
+                          >
+                            {place.note}
+                          </span>
+                        ) : null}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
             </Reveal>
           );
         })}

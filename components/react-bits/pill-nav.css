@@ -47,7 +47,7 @@
 
 .pill-brand {
   color: #ffffff;
-  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   font-size: 1.125rem;
   letter-spacing: -0.02em;
@@ -88,7 +88,7 @@
   text-decoration: none;
   border-radius: 9999px;
   box-sizing: border-box;
-  font-family: inherit;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   font-weight: 600;
   font-size: 0.875rem;
   line-height: 0;

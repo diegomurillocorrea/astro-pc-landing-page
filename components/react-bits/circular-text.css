@@ -26,7 +26,7 @@
 .circular-text.hero-orbit {
   width: 260px;
   height: 260px;
-  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
   color: #c3ffdc;
   cursor: default;
 }

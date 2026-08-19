@@ -1,4 +1,4 @@
-import { Plus, Sparkle } from "@/components/landing/marks";
+import { Plus } from "@/components/landing/marks";
 import { Reveal } from "@/components/landing/reveal";
 import { faqs, guarantees } from "@/lib/landing-content";
 
@@ -15,14 +15,10 @@ export function Faq() {
 
       <div className="shell relative">
         <div className="border-b border-paper/12 pb-10">
-          <Reveal className="flex items-center gap-3 text-mint">
-            <Sparkle className="size-3.5" />
-            <p className="t-label">Respaldo · § 07</p>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className="t-section mt-5 text-paper">
+          <Reveal>
+            <h2 className="t-section text-paper">
               Garantías
-              <span className="t-outline ml-4 inline-block">y preguntas</span>
+              <span className="ml-4 inline-block text-mint">y preguntas</span>
             </h2>
           </Reveal>
         </div>
@@ -30,10 +26,9 @@ export function Faq() {
         <div className="mt-12 grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <Reveal as="ul" className="space-y-6">
-              {guarantees.map((item, index) => (
+              {guarantees.map((item) => (
                 <li key={item.title} className="border-l-2 border-mint pl-5">
-                  <p className="t-label text-mint">G-0{index + 1}</p>
-                  <h3 className="t-heading mt-2 text-lg uppercase text-paper">
+                  <h3 className="t-heading text-lg uppercase text-paper">
                     {item.title}
                   </h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-paper/60">
@@ -45,15 +40,12 @@ export function Faq() {
           </div>
 
           <Reveal delay={100} className="border-t border-paper/15">
-            {faqs.map((item, index) => (
+            {faqs.map((item) => (
               <details
                 key={item.question}
                 className="group border-b border-paper/15"
               >
                 <summary className="flex cursor-pointer list-none items-start gap-4 py-6 sm:gap-6">
-                  <span className="t-label shrink-0 pt-2 text-mint">
-                    0{index + 1}
-                  </span>
                   <span className="t-heading flex-1 text-[clamp(1.0625rem,1.9vw,1.5rem)] text-paper transition-colors group-hover:text-mint">
                     {item.question}
                   </span>
@@ -64,7 +56,7 @@ export function Faq() {
                     <Plus className="size-3.5" />
                   </span>
                 </summary>
-                <p className="pb-7 text-sm leading-relaxed text-paper/65 sm:pl-13 sm:pr-15">
+                <p className="pb-7 text-sm leading-relaxed text-paper/65 sm:pr-15">
                   {item.answer}
                 </p>
               </details>

@@ -3,15 +3,15 @@
 import { useEffect, useState } from "react";
 import Magnet from "@/components/react-bits/magnet";
 import StaggeredMenu from "@/components/react-bits/staggered-menu";
-import { Logo } from "@/components/landing/logo";
+import { BrandLockup } from "@/components/landing/logo";
 import { WhatsAppButton } from "@/components/landing/whatsapp-button";
-import { brand, hero, navLinks } from "@/lib/landing-content";
+import { brand, navLinks } from "@/lib/landing-content";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 const NAVY_MID = "#123a5c";
 const MINT = "#c3ffdc";
 const PAPER = "#ffffff";
-const LOGO_SRC = "/astro-pc-logo.png";
+const LOGO_SRC = "/astro-logo.png";
 
 const menuItems = navLinks.map((link) => ({
   label: link.label,
@@ -85,26 +85,18 @@ function useAllowsHoverMotion() {
 type NavItemProps = {
   href: string;
   label: string;
-  index: number;
   isActive: boolean;
 };
 
-function NavItem({ href, label, index, isActive }: NavItemProps) {
+function NavItem({ href, label, isActive }: Omit<NavItemProps, "index">) {
   return (
     <li>
       <a
         href={href}
         aria-current={isActive ? "true" : undefined}
-        className="group flex items-baseline gap-2 py-2"
+        className="group flex items-baseline py-2"
       >
-        <span
-          className={`t-label transition-colors ${
-            isActive ? "text-mint" : "text-paper/62 group-hover:text-mint"
-          }`}
-        >
-          0{index + 1}
-        </span>
-        <span className="relative block h-[1.15em] overflow-hidden font-display text-sm font-bold uppercase tracking-[0.01em]">
+        <span className="relative block h-[1.15em] overflow-hidden font-sans text-sm font-semibold">
           <span
             className={`block transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full ${
               isActive ? "text-mint" : "text-paper"
@@ -132,39 +124,28 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-50 hidden border-b border-paper/12 bg-navy/80 backdrop-blur-xl md:block">
-        <div className="shell flex h-20 items-center justify-between gap-8">
-          <a href="#inicio" className="group flex min-w-0 items-center gap-3">
-            <Logo priority className="h-11 w-11 transition-transform duration-300 group-hover:rotate-[8deg]" />
-            <span className="flex flex-col leading-none">
-              <span className="font-display text-lg font-extrabold uppercase tracking-[-0.02em] text-paper">
-                {brand.name}
-              </span>
-              <span className="t-label mt-1 text-mint/70">{brand.region}</span>
-            </span>
+        <div className="shell flex h-20 items-center justify-between gap-4 lg:gap-8">
+          <a href="#inicio" className="min-w-0">
+            <BrandLockup priority size="md" />
           </a>
 
-          <nav aria-label="Principal" className="hidden lg:block">
-            <ul className="flex items-center gap-5 xl:gap-7">
-              {navLinks.map((link, index) => (
+          <nav aria-label="Principal">
+            <ul className="flex items-center gap-4 lg:gap-7">
+              {navLinks.map((link) => (
                 <NavItem
                   key={link.href}
                   href={link.href}
                   label={link.label}
-                  index={index}
                   isActive={activeHref === link.href}
                 />
               ))}
             </ul>
           </nav>
 
-          <div className="flex items-center gap-5">
-            <span className="hidden items-center gap-2 border border-mint/25 px-3 py-1.5 xl:inline-flex">
-              <span className="pulse-dot size-1.5 rounded-full bg-mint" />
-              <span className="t-label text-mint">{hero.status}</span>
-            </span>
+          <div className="flex items-center gap-3">
             <Magnet padding={40} magnetStrength={6} disabled={!allowsHoverMotion}>
               <WhatsAppButton messageKey="schedule" variant="compact">
-                Agendar
+                WhatsApp
               </WhatsAppButton>
             </Magnet>
           </div>
@@ -180,9 +161,9 @@ export function Header() {
           items={menuItems}
           socialItems={[{ label: "Agendar por WhatsApp", link: whatsappUrl }]}
           displaySocials
-          displayItemNumbering
+          displayItemNumbering={false}
           logoUrl={LOGO_SRC}
-          logoAlt={`${brand.name} — ${brand.tagline}`}
+          logoAlt={brand.name}
           brandName={brand.name}
           colors={[NAVY_MID, MINT]}
           accentColor={MINT}

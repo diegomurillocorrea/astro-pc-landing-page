@@ -35,9 +35,9 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
-  --font-sans: var(--font-instrument);
-  --font-display: var(--font-syne);
-  --font-mono: var(--font-space-mono);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-chakra-petch);
+  --font-mono: var(--font-chakra-petch);
 }
 
 html {
@@ -50,7 +50,7 @@ body {
   overflow-x: clip;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-instrument), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
 body::before {
@@ -84,16 +84,13 @@ details summary::-webkit-details-marker {
 
 .t-hero,
 .t-display,
-.t-section,
-.t-numeral {
-  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
-  font-weight: 800;
+.t-section {
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
   text-transform: uppercase;
   text-wrap: balance;
 }
 
-/* Syne Extrabold es muy ancha: los tamaños están calibrados para que la
-   palabra más larga de cada bloque quepa sin partirse. */
 .t-hero {
   font-size: var(--hero-size, clamp(1.5rem, 7.8vw, 8rem));
   line-height: 0.84;
@@ -113,21 +110,25 @@ details summary::-webkit-details-marker {
 }
 
 .t-numeral {
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
   font-size: var(--numeral-size, clamp(2.5rem, 8.2vw, 7.5rem));
   line-height: 0.74;
   letter-spacing: -0.06em;
   font-variant-numeric: tabular-nums;
+  text-wrap: balance;
 }
 
 .t-heading {
-  font-family: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.05;
 }
 
 .t-label {
-  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
   font-size: 0.6875rem;
   line-height: 1.1;
   letter-spacing: 0.22em;
@@ -135,22 +136,10 @@ details summary::-webkit-details-marker {
 }
 
 .t-meta {
-  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
   font-size: 0.75rem;
   letter-spacing: 0.06em;
-}
-
-/* Texto contorneado: sólo decorativo o en piezas de gran escala */
-.t-outline {
-  color: transparent;
-  -webkit-text-stroke-width: clamp(1px, 0.14vw, 2px);
-  -webkit-text-stroke-color: var(--outline-color, var(--mint));
-}
-
-@supports not (-webkit-text-stroke: 1px currentcolor) {
-  .t-outline {
-    color: var(--outline-color, var(--mint));
-  }
 }
 
 /* ---------------------------------------------------------------
@@ -179,6 +168,20 @@ details summary::-webkit-details-marker {
     transparent 1px
   );
   background-size: 14px 14px;
+}
+
+.logo-planet {
+  background-color: currentColor;
+  mask-image: url("/astro-logo.png");
+  mask-mode: luminance;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: url("/astro-logo.png");
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-source-type: luminance;
 }
 
 .section-light {

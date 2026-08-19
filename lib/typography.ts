@@ -1,5 +1,5 @@
 /**
- * Ancho medio (en `em`) de un carácter en Syne Extrabold mayúsculas con el
+ * Ancho medio (en `em`) de un carácter en Space Grotesk Bold mayúsculas con el
  * tracking del titular. Medido sobre las líneas reales de la landing y
  * redondeado hacia arriba para cubrir combinaciones anchas tipo "AGENDAMOS".
  */

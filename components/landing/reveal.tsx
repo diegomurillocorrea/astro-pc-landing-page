@@ -22,8 +22,8 @@ type RevealProps = {
 
 /**
  * Revelado al entrar en viewport usando IntersectionObserver.
- * Sólo anima `opacity` y `transform`; el estado inicial vive en `globals.css`
- * y se anula con `prefers-reduced-motion` o sin JavaScript.
+ * El primer pintado deja el contenido visible; sólo se oculta lo que está
+ * bajo el pliegue, para animarlo al entrar.
  */
 export function Reveal({
   children,
@@ -35,30 +35,35 @@ export function Reveal({
 }: RevealProps) {
   const Tag = (as ?? "div") as ElementType;
   const [node, setNode] = useState<HTMLElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (!node || isVisible) {
+    if (!node) {
       return;
     }
 
-    // Con motion reducido el CSS ya deja el contenido visible: no observamos.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
+        const isIntersecting = entries.some((entry) => entry.isIntersecting);
+
+        if (isIntersecting) {
           setIsVisible(true);
+          observer.disconnect();
+          return;
         }
+
+        setIsVisible(false);
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+      { rootMargin: "0px 0px 0px 0px", threshold: 0 },
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [node, isVisible]);
+  }, [node]);
 
   return (
     <Tag

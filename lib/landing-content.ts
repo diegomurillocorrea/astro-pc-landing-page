@@ -1,120 +1,97 @@
 export const brand = {
   name: "Astro PC",
-  tagline: "Mantenimiento a tu hogar",
+  tagline: "PS5, PC Gamer y DualSense en tu casa",
   location: "San Salvador, El Salvador",
-  specialization: "PS5, PC Gamer y Mandos DualSense",
-  coords: "13.6929° N / 89.2182° O",
-  region: "SV · +503",
+  specialization: "PS5, PC Gamer y mandos DualSense",
+  region: "San Salvador",
 } as const;
 
 export const navLinks = [
   { href: "#servicios", label: "Servicios" },
   { href: "#cotizar", label: "Cotizar" },
-  { href: "#efecto-hall", label: "Efecto Hall" },
-  { href: "#proceso", label: "Proceso" },
+  { href: "#proceso", label: "Cómo vamos" },
   { href: "#preguntas", label: "Preguntas" },
 ] as const;
 
 export const whatsappMessages = {
-  schedule: "Hola Astro PC, quiero agendar una visita a domicilio.",
-  ps5: "Hola, me interesa el mantenimiento preventivo de PS5 ($65).",
-  pc: "Hola, me interesa el mantenimiento preventivo de PC Gamer ($65).",
-  joysticks: "Hola, quiero cotizar el cambio de palancas con efecto Hall.",
+  schedule: "Hola Astro PC, quiero que vayan a mi casa a revisar mi equipo.",
+  ps5: "Hola, quiero el mantenimiento de la PS5, el de $65.",
+  pc: "Hola, quiero el mantenimiento de la PC gamer, el de $65.",
+  joysticks: "Hola, el mando de la PS5 se me va solo y quiero cotizar las palancas magnéticas.",
 } as const;
 
 export const hero = {
-  title: "Especialistas en PS5, PC Gamer y Mandos DualSense a Domicilio.",
-  /** Composición editorial del titular. El texto plano vive en `title`. */
+  title: "Astro PC. Mantenimiento de PS5, PC Gamer y mandos DualSense en tu casa.",
   lines: [
     { text: "PS5.", variant: "solid" },
-    { text: "PC Gamer.", variant: "outline" },
+    { text: "PC Gamer.", variant: "accent" },
     { text: "DualSense.", variant: "solid" },
   ],
-  badge: "a domicilio",
+  badge: "en tu casa",
+  kicker: "Somos Astro PC",
   subtitle:
-    "Llevamos el mantenimiento técnico especializado hasta la puerta de tu casa en San Salvador y alrededores.",
-  cta: "Agendar Visita por WhatsApp",
-  secondaryCta: "Ver servicios y precios",
-  quoteCta: "Cotizar en 3 pasos",
-  status: "Agenda abierta",
+    "Vamos a tu casa en San Salvador, limpiamos la consola o la PC, le cambiamos la pasta y, si el mando se te va solo, le ponemos palancas magnéticas.",
+  cta: "Escríbenos por WhatsApp",
+  quoteCta: "Arma tu precio",
+  status: "Estamos agendando",
 } as const;
 
 export const heroStats = [
-  { value: "03", label: "Equipos", note: "PS5 · PC Gamer · DualSense" },
-  { value: "100%", label: "Presencial", note: "Ves cada paso del trabajo" },
-  { value: "0", label: "Traslados", note: "Tu equipo no sale de casa" },
+  { value: "$65", label: "Precio fijo", note: "PS5 o PC gamer en Gran San Salvador" },
+  { value: "4", label: "Pasos", note: "Nos escribes, vamos, trabajamos y lo pruebas" },
+  { value: "3", label: "Garantías", note: "Por escrito, antes de irnos" },
 ] as const;
 
 export const marqueeItems = [
   "PS5",
   "PC Gamer",
   "DualSense",
-  "Efecto Hall",
-  "A domicilio",
+  "El mando se va solo",
+  "Pasta térmica",
+  "En tu casa",
   "San Salvador",
   "Precio fijo",
-  "Garantía por escrito",
 ] as const;
 
 export const specialization = {
-  title: "Atención exclusiva",
   headline: "Tres equipos. Nada más.",
-  body: "Solo trabajamos PS5, PC Gamer y mandos DualSense de PS5. No atendemos PS4, Xbox, Nintendo Switch ni consolas retro.",
+  body: "Solo trabajamos PS5, PC gamer y el mando DualSense de PS5. Así el trabajo sale bien. No metemos PS4, Xbox, Nintendo Switch ni consolas viejas.",
   supported: [
     {
       code: "01",
       label: "PlayStation 5",
-      note: "Mantenimiento preventivo y control térmico.",
+      note: "La abrimos, le sacamos el polvo y le ponemos pasta nueva.",
       href: "#servicios",
     },
     {
       code: "02",
       label: "PC Gamer",
-      note: "Desmonte técnico, limpieza y pasta térmica.",
+      note: "Limpieza a fondo, pasta en el procesador y en la gráfica.",
       href: "#servicios",
     },
     {
       code: "03",
       label: "Mando DualSense",
-      note: "Palancas magnéticas con efecto Hall.",
+      note: "Palancas magnéticas para que deje de irse solo.",
       href: "#efecto-hall",
     },
   ],
-  excludedTitle: "Fuera de alcance",
-  excluded: ["PS4", "Xbox", "Nintendo Switch", "Consolas retro"],
-  excludedNote:
-    "Preferimos decírtelo antes de que escribas: especializarnos es lo que sostiene la calidad.",
+  excludedTitle: "Esto no lo atendemos",
+  excluded: ["PS4", "Xbox", "Nintendo Switch", "Consolas viejas"],
+  excludedNote: "Mejor te lo decimos ahora, para que no pierdas el tiempo escribiendo.",
 } as const;
 
-export const metrics = [
-  {
-    value: "$65",
-    label: "Precio fijo",
-    note: "Mantenimiento preventivo de PS5 o PC Gamer en zona central y metropolitana, sin recargo.",
-  },
-  {
-    value: "04",
-    label: "Pasos",
-    note: "Agendamiento, diagnóstico, intervención y pruebas en vivo antes de irnos.",
-  },
-  {
-    value: "03",
-    label: "Garantías",
-    note: "Pruebas en vivo, garantía técnica y cobertura de las palancas instaladas.",
-  },
-] as const;
-
 export const coverageNote =
-  "La tarifa publicada cubre la zona central y metropolitana, sin recargo. El resto suma un recargo fijo de traslado según la matriz. Costas, oriente, paracentral, norte y occidente profundo no tienen servicio.";
+  "En Gran San Salvador el precio que ves es el final. Más lejos se suma un cobro fijo por el viaje. A playas, oriente, paracentral, norte y occidente profundo no llegamos.";
 
 export const coverageZones = [
   {
     id: "central",
-    name: "Central y metropolitana",
-    surchargeLabel: "Sin recargo",
+    name: "Gran San Salvador",
+    surchargeLabel: "Sin extra",
     surcharge: 0,
     covered: true,
-    note: "Tarifa publicada. Incluye Gran San Salvador y casco urbano de Sonsonate, Izalco y Sonzacate.",
+    note: "San Salvador, Santa Tecla, Soyapango y alrededores. El precio publicado queda igual.",
     municipalities: [
       {
         name: "San Salvador Centro",
@@ -140,11 +117,11 @@ export const coverageZones = [
   },
   {
     id: "periferica-1",
-    name: "Periférica nivel 1",
-    surchargeLabel: "+$5",
+    name: "Un poco más lejos",
+    surchargeLabel: "+$5 por el viaje",
     surcharge: 5,
     covered: true,
-    note: "Recargo fijo de traslado.",
+    note: "Cobro fijo por ir hasta allá.",
     municipalities: [
       { name: "Nuevo Cuscatlán" },
       { name: "San Marcos" },
@@ -154,11 +131,11 @@ export const coverageZones = [
   },
   {
     id: "periferica-2",
-    name: "Periférica nivel 2",
-    surchargeLabel: "+$10",
+    name: "Más lejos",
+    surchargeLabel: "+$10 por el viaje",
     surcharge: 10,
     covered: true,
-    note: "Recargo fijo de traslado.",
+    note: "Cobro fijo por ir hasta allá.",
     municipalities: [
       { name: "Lourdes" },
       { name: "Zaragoza" },
@@ -170,36 +147,36 @@ export const coverageZones = [
   },
   {
     id: "departamental",
-    name: "Departamental especial",
-    surchargeLabel: "+$20",
+    name: "Santa Ana",
+    surchargeLabel: "+$20 por el viaje",
     surcharge: 20,
     covered: true,
-    note: "Únicamente casco urbano.",
-    municipalities: [{ name: "Santa Ana", note: "Únicamente casco urbano" }],
+    note: "Solo el casco urbano.",
+    municipalities: [{ name: "Santa Ana", note: "Solo el casco urbano" }],
   },
 ] as const;
 
 export const coverageExcluded = {
   id: "excluded",
-  name: "Fuera de cobertura",
+  name: "Ahí no llegamos",
   surchargeLabel: "Sin servicio",
   surcharge: null,
   covered: false,
-  note: "No visitamos costas, oriente, paracentral, norte ni occidente profundo.",
+  note: "No vamos a playas, oriente, paracentral, norte ni occidente profundo.",
   municipalities: [
     {
-      name: "Zonas costeras y playas",
+      name: "Playas y costa",
       note: "Surf City, El Tunco, Costa del Sol, Majahual, Metalío",
     },
     {
-      name: "Zona Oriental",
+      name: "Oriente",
       note: "San Miguel, Usulután, Morazán, La Unión",
     },
     {
-      name: "Zona Paracentral",
+      name: "Paracentral",
       note: "San Vicente, Cabañas",
     },
-    { name: "Zona Norte", note: "Chalatenango" },
+    { name: "Norte", note: "Chalatenango" },
     {
       name: "Occidente profundo",
       note: "Ahuachapán, Ataco, Apaneca, Metapán, Chalchuapa, El Congo, Coatepeque",
@@ -208,72 +185,70 @@ export const coverageExcluded = {
 } as const;
 
 export const quoteCopy = {
-  eyebrow: "Cotizador · § 03",
-  titleLead: "Cotiza",
-  titleTrail: "en tres pasos",
-  body: "Elige equipo y municipio. El recargo de traslado es tarifa fija según la matriz de cobertura.",
+  titleLead: "Arma",
+  titleTrail: "tu precio",
+  body: "Elige el equipo y dónde vives. Si hay cobro por el viaje, te sale ahí mismo.",
   steps: [
-    { code: "01", label: "Equipo" },
-    { code: "02", label: "Zona" },
-    { code: "03", label: "Precio" },
+    { code: "1", label: "Equipo" },
+    { code: "2", label: "Zona" },
+    { code: "3", label: "Precio" },
   ],
-  equipmentLegend: "Elige tu equipo",
-  dualsenseLegend: "Configuración del mando",
-  zoneLegend: "Elige tu zona",
-  municipalityLegend: "Municipio o distrito",
-  resultLabel: "Precio estimado",
-  resultEmpty: "Elige equipo y zona para ver el estimado.",
-  resultUncovered: "Sin servicio",
+  equipmentLegend: "¿Qué hay que revisar?",
+  dualsenseLegend: "¿Cuántas palancas?",
+  zoneLegend: "¿Dónde vives?",
+  municipalityLegend: "Municipio (si quieres afinar)",
+  municipalityPlaceholder: "Toda la zona",
+  resultLabel: "Te queda en",
+  resultEmpty: "Elige equipo y zona para ver el precio.",
+  resultUncovered: "Ahí no llegamos",
   uncoveredBody:
-    "Esta zona está fuera de cobertura. No agendamos visitas en costas, oriente, paracentral, norte ni occidente profundo.",
+    "Esa zona está fuera. No agendamos visitas en playas, oriente, paracentral, norte ni occidente profundo.",
   baseLabel: "Servicio",
-  surchargeLabel: "Traslado",
+  surchargeLabel: "Viaje",
   disclaimer:
-    "El recargo de traslado es tarifa fija. DualSense se cotiza en rango según palancas.",
+    "El cobro por el viaje es fijo. El mando DualSense sale en rango, según cuántas palancas.",
   cta: "Confirmar por WhatsApp",
-  coverageEyebrow: "Cobertura",
-  coverageTitle: "Matriz de zonas y tarifas",
-  coverageBody:
-    "Recargo fijo por zona. Si tu colonia está dentro de un municipio cubierto, el recargo es el de esa categoría.",
-  coverageMapLabel: "Tarifas de traslado",
+  coverageTitle: "Dónde sí llegamos",
+  coverageBody: "Si tu colonia está en uno de estos municipios, aplica ese cobro por el viaje.",
+  coverageToggle: "Ver municipios",
   coverageTeaser:
-    "Sin recargo en Gran San Salvador, Santa Tecla y Soyapango. +$5, +$10 o +$20 según zona.",
-  coverageCta: "Ver matriz de cobertura",
+    "En Gran San Salvador no se cobra extra. Más lejos son +$5, +$10 o +$20 por el viaje.",
+  coverageCta: "Ver zonas",
 } as const;
 
 export const maintenanceServices = [
   {
     id: "ps5",
-    title: "Mantenimiento Preventivo de PS5",
+    title: "Limpieza y mantenimiento de PS5",
     price: "$65.00",
     amount: 65,
     whatsappKey: "ps5" as const,
     items: [
-      "Limpieza profunda de polvo en disipadores y conductos de ventilación.",
-      "Revisión y reatrapado/aplicación de compuesto térmico o metal líquido según requerimiento.",
-      "Optimización del flujo de aire para prevenir sobrecalentamiento.",
+      "Le sacamos el polvo de los disipadores y de los conductos.",
+      "Le ponemos pasta térmica nueva (o metal líquido, si hace falta).",
+      "Queda ventilando mejor, para que no se caliente tanto.",
     ],
   },
   {
     id: "pc",
-    title: "Mantenimiento Preventivo de PC Gamer",
+    title: "Limpieza y mantenimiento de PC gamer",
     price: "$65.00",
     amount: 65,
     whatsappKey: "pc" as const,
     items: [
-      "Desmonte técnico y limpieza profunda de componentes (ventiladores, tarjeta gráfica, tarjeta madre y fuente).",
-      "Reemplazo de pasta térmica de alta calidad en el procesador y la tarjeta gráfica.",
-      "Ordenamiento de cables y optimización del flujo de aire.",
+      "Abrimos el gabinete y limpiamos ventiladores, gráfica, tarjeta madre y fuente.",
+      "Pasta nueva en el procesador y en la gráfica.",
+      "Acomodamos cables para que corra mejor el aire.",
     ],
   },
 ] as const;
 
 export const joystickService = {
   id: "joysticks",
-  title: "Reparación de mandos DualSense (antideriva)",
-  subtitle: "Cambio de palancas magnéticas con efecto Hall",
+  title: "El mando DualSense hace drift",
+  subtitle: "Le cambiamos las palancas por unas magnéticas",
   description:
-    "Reemplazo de módulos analógicos por tecnología de efecto Hall: sensores magnéticos que eliminan la deriva de forma permanente. Exclusivo para mandos de PS5.",
+    "Las palancas normales se raspan y el personaje se mueve solo. Las magnéticas no tienen fricción: el DualSense deja de hacer drift.",
   whatsappKey: "joysticks" as const,
   tiers: [
     {
@@ -300,122 +275,114 @@ export const joystickService = {
   ],
 } as const;
 
-export const serviceCta = "Consultar por WhatsApp";
+export const serviceCta = "Cotizar este servicio";
 
 export const benefits = {
-  title: "Por qué a domicilio",
+  title: "¿Por qué en tu casa?",
   items: [
     {
-      title: "Cero traslados",
-      body: "Tu consola o PC no sale de casa. Sin riesgo de golpes, pérdidas o filas en un taller.",
+      title: "Tu equipo no se mueve",
+      body: "La consola o la PC se queda. Nada de golpes en el camino ni de dejarla en un taller.",
     },
     {
-      title: "Trabajo presencial",
-      body: "Ves el diagnóstico y la intervención frente a ti. Transparencia total en cada paso.",
+      title: "Lo ves con tus ojos",
+      body: "Estás ahí en el diagnóstico y en el trabajo. Nada escondido.",
     },
     {
-      title: "Rutas flexibles",
-      body: "Agendamos por WhatsApp y organizamos visitas por zonas de San Salvador y alrededores.",
+      title: "Coordinamos por WhatsApp",
+      body: "Nos escribes, armamos la ruta por zona y llegamos a la hora que quedamos.",
     },
   ],
 } as const;
 
 export const hallEffect = {
-  eyebrow: "Antideriva permanente",
-  title: "Tecnología de efecto Hall",
-  subtitle: "Por qué las palancas magnéticas superan a los potenciómetros",
-  body: "Las palancas tradicionales usan potenciómetros: piezas que se desgastan con el roce y terminan en deriva. El efecto Hall lee la posición con sensores magnéticos, sin contacto físico. El resultado es un mando DualSense que deja de derivar y se mantiene calibrado.",
-  exclusive: "Exclusivo para mandos DualSense de PS5.",
-  cta: "Cotizar cambio de palancas",
-  analogLabel: "Potenciómetro",
-  analogTitle: "Contacto físico",
-  analogBody: "Se desgasta con el roce. Con el tiempo aparece la deriva.",
-  magneticLabel: "Efecto Hall",
-  magneticTitle: "Sensor magnético",
-  magneticBody: "Sin desgaste por fricción. La palanca deja de derivar.",
-  metric: { value: "0", unit: "deriva", note: "Sin contacto físico entre piezas." },
-  specs: [
-    { key: "Tecnología", value: "Sensor magnético" },
-    { key: "Desgaste", value: "Sin fricción" },
-    { key: "Compatibilidad", value: "DualSense PS5" },
-    { key: "Garantía", value: "Contra descalibración" },
-  ],
+  title: "El mando hace drift",
+  subtitle: "Se quita cambiando las palancas",
+  body: "Las palancas baratas se raspan por dentro y el analogito queda loco: el personaje se mueve solo. Eso es el drift. Nosotros ponemos palancas magnéticas: un imán lee el movimiento, no hay pieza rozando. El DualSense de PS5 deja de hacerlo.",
+  exclusive: "Solo mandos DualSense de PS5.",
+  cta: "Cotizar las palancas",
+  analogLabel: "Palanca normal",
+  analogTitle: "Hace drift",
+  analogBody: "Con el uso se raspa por dentro. Un día el personaje camina solo.",
+  magneticLabel: "Palanca magnética",
+  magneticTitle: "Sin drift",
+  magneticBody: "Va por imán. El mando se queda quieto cuando tú lo dejas quieto.",
 } as const;
 
 export const processSteps = [
   {
-    step: "01",
-    title: "Agendamiento por WhatsApp",
-    body: "Escríbenos el equipo, la zona y tu disponibilidad. Confirmamos ruta y horario.",
+    step: "1",
+    title: "Nos escribes",
+    body: "Dinos el equipo, la zona y cuándo puedes. Confirmamos día y hora por WhatsApp.",
   },
   {
-    step: "02",
-    title: "Diagnóstico e inspección",
-    body: "Revisamos el equipo en sitio antes de intervenir. Te explicamos qué se va a hacer.",
+    step: "2",
+    title: "Revisamos en tu casa",
+    body: "Vemos el equipo ahí mismo y te explicamos qué le vamos a hacer, antes de tocarlo.",
   },
   {
-    step: "03",
-    title: "Mantenimiento o reemplazo",
-    body: "Limpieza profunda, compuesto térmico o cambio de palancas con efecto Hall, según el servicio.",
+    step: "3",
+    title: "Lo dejamos listo",
+    body: "Limpieza, pasta térmica o cambio de palancas, según lo que cotizamos.",
   },
   {
-    step: "04",
-    title: "Pruebas y entrega",
-    body: "Medimos temperaturas y hacemos una prueba de rendimiento. Sales con el equipo probado y la garantía por escrito.",
+    step: "4",
+    title: "Lo pruebas con nosotros",
+    body: "Medimos temperaturas y lo corremos. Sales con el equipo probado y la garantía por escrito.",
   },
 ] as const;
 
 export const guarantees = [
   {
-    title: "Pruebas en vivo",
-    body: "Medición de temperaturas y monitoreo de rendimiento (prueba de estrés) antes y después del servicio.",
+    title: "Lo ves funcionar",
+    body: "Medimos temperaturas y lo prendemos contigo, antes y después del trabajo.",
   },
   {
-    title: "Garantía técnica",
-    body: "Cobertura por escrito sobre la mano de obra y la correcta instalación de los repuestos.",
+    title: "Garantía del trabajo",
+    body: "Por escrito: la mano de obra y que los repuestos quedaron bien puestos.",
   },
   {
-    title: "Garantía de efecto Hall",
-    body: "Cobertura contra defectos de fábrica o descalibración en las palancas instaladas.",
+    title: "Garantía de las palancas",
+    body: "Si las palancas magnéticas se vuelven a ir solas por defecto, las cubrimos.",
   },
 ] as const;
 
 export const faqs = [
   {
-    question: "¿Cuánto tarda una visita?",
+    question: "¿Cuánto tardan en la visita?",
     answer:
-      "El tiempo depende del servicio y del estado del equipo. En WhatsApp te damos una ventana al agendar; el mantenimiento preventivo suele resolverse en la misma visita.",
+      "Depende del servicio y de cómo esté el equipo. En WhatsApp te damos una ventana. El mantenimiento de PS5 o PC casi siempre se resuelve esa misma visita.",
   },
   {
-    question: "¿Cómo preparo el área de trabajo?",
+    question: "¿Qué ocupo tener listo?",
     answer:
-      "Un espacio plano, iluminado y con toma eléctrica cerca es suficiente: mesa, escritorio o zona despejada. Nosotros llevamos herramientas y materiales.",
+      "Una mesa o un espacio despejado, con luz y un enchufe cerca. Las herramientas las llevamos nosotros.",
   },
   {
-    question: "¿Qué métodos de pago aceptan?",
+    question: "¿Cómo se paga?",
     answer:
-      "Confirmamos el método al agendar por WhatsApp (efectivo y transferencias habituales en El Salvador). El precio se cierra antes de iniciar el trabajo.",
+      "Lo confirmamos al agendar: efectivo o transferencia, como se usa aquí. El precio se cierra antes de empezar.",
   },
   {
-    question: "¿Hay recargo si no vivo en San Salvador centro?",
+    question: "¿Me cobran extra si no vivo en San Salvador centro?",
     answer:
-      "Santa Tecla, Antiguo Cuscatlán, Soyapango, Apopa y el resto de la zona central y metropolitana no tienen recargo. Periferia nivel 1 suma $5, nivel 2 suma $10 y Santa Ana (casco urbano) suma $20. Costas, oriente, paracentral, norte y occidente profundo no tienen servicio. Lo ves en Cotizar.",
+      "Santa Tecla, Antiguo Cuscatlán, Soyapango, Apopa y el resto de Gran San Salvador no pagan extra. Un poco más lejos son $5, más lejos $10 y Santa Ana (casco urbano) $20. Playas, oriente, paracentral, norte y occidente profundo no tienen visita. Eso lo ves en Cotizar.",
   },
   {
-    question: "¿Atienden PS4, Xbox o Switch?",
+    question: "¿Ven PS4, Xbox o Switch?",
     answer:
-      "No. Nos especializamos únicamente en PlayStation 5, PC Gamer y mandos DualSense de PS5 para mantener la calidad del servicio.",
+      "No. Solo PlayStation 5, PC gamer y el mando DualSense de PS5, para no aflojar la calidad.",
   },
 ] as const;
 
 export const footer = {
-  ctaTitle: "¿Listo para agendar?",
-  ctaLines: ["Escribe.", "Agendamos.", "Llegamos."],
+  ctaTitle: "¿Lo agendamos?",
+  ctaLines: ["Escríbenos.", "Cuadramos.", "Llegamos."],
   ctaBody:
-    "Escríbenos por WhatsApp y coordinamos la visita a domicilio en San Salvador y alrededores.",
-  cta: "Agendar Visita por WhatsApp",
-  colophon: "Diseñado y mantenido en El Salvador.",
-  creditPrefix: "Developed by",
+    "Mándanos WhatsApp y coordinamos la visita en San Salvador y alrededores.",
+  cta: "Escríbenos por WhatsApp",
+  colophon: "Hecho en El Salvador.",
+  creditPrefix: "Hecho por",
   creditBrand: "DAIEGO",
   creditUrl: "https://www.daiego.com",
 } as const;

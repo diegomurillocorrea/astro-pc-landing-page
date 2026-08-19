@@ -2,6 +2,11 @@
 
 import { useMemo, useState } from "react";
 import { Check, Sparkle } from "@/components/landing/marks";
+import {
+  DualSenseMark,
+  PcMark,
+  Ps5Mark,
+} from "@/components/landing/hardware-art";
 import { WhatsAppButton } from "@/components/landing/whatsapp-button";
 import {
   coverageExcluded,
@@ -13,7 +18,7 @@ import {
   addSurcharge,
   buildQuoteMessage,
   DEFAULT_DUALSENSE_TIER,
-  formatSurcharge,
+  formatUsd,
   formatUsdRange,
   getEquipmentRange,
   getZoneSurcharge,
@@ -27,41 +32,51 @@ import { getWhatsAppTextUrl } from "@/lib/whatsapp";
 
 const zoneOptions = [...coverageZones, coverageExcluded];
 
+const equipmentMark = {
+  ps5: Ps5Mark,
+  pc: PcMark,
+  dualsense: DualSenseMark,
+} as const;
+
 type OptionCardProps = {
-  code: string;
   label: string;
   hint: string;
   isSelected: boolean;
   onSelect: () => void;
+  Mark?: typeof Ps5Mark;
 };
 
 function OptionCard({
-  code,
   label,
   hint,
   isSelected,
   onSelect,
+  Mark,
 }: OptionCardProps) {
   return (
     <button
       type="button"
       aria-pressed={isSelected}
       onClick={onSelect}
-      className={`flex min-h-32 flex-col items-start border-2 p-5 text-left transition-[background-color,border-color,color] duration-200 ${
+      className={`flex min-h-28 flex-col items-start border-2 p-4 text-left transition-[background-color,border-color,color] duration-200 sm:min-h-32 sm:p-5 ${
         isSelected
           ? "border-mint bg-mint text-navy"
           : "border-paper/15 bg-navy-mid text-paper hover:border-mint/45"
       }`}
     >
-      <span className="flex w-full items-center justify-between gap-3">
-        <span
-          className={`t-label ${isSelected ? "text-navy/70" : "text-mint"}`}
-        >
-          {code}
-        </span>
+      <span className="flex w-full items-start justify-between gap-3">
+        {Mark ? (
+          <Mark
+            className={`h-10 w-10 shrink-0 ${
+              isSelected ? "text-navy" : "text-mint"
+            }`}
+          />
+        ) : (
+          <span />
+        )}
         {isSelected ? <Check className="size-4" /> : null}
       </span>
-      <span className="t-heading mt-4 text-[clamp(1.125rem,2vw,1.5rem)] uppercase">
+      <span className="t-heading mt-3 text-[clamp(1.125rem,2vw,1.5rem)] uppercase">
         {label}
       </span>
       <span
@@ -186,15 +201,14 @@ export function QuoteCalculator() {
   return (
     <div className="grid gap-4">
       <fieldset>
-        <legend className="flex items-center gap-3 text-mint">
-          <Sparkle className="size-3.5" />
-          <span className="t-label">{quoteCopy.equipmentLegend}</span>
+        <legend className="text-sm font-semibold text-mint">
+          {quoteCopy.equipmentLegend}
         </legend>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {quoteEquipment.map((item) => (
             <OptionCard
               key={item.id}
-              code={item.code}
+              Mark={equipmentMark[item.id]}
               label={item.label}
               hint={
                 item.id === "dualsense"
@@ -210,7 +224,7 @@ export function QuoteCalculator() {
 
       {equipmentId === "dualsense" ? (
         <fieldset className="border-2 border-paper/12 bg-navy-mid p-5">
-          <legend className="t-label px-2 text-mint">
+          <legend className="px-2 text-sm font-semibold text-mint">
             {quoteCopy.dualsenseLegend}
           </legend>
           <div className="grid gap-2 sm:grid-cols-3">
@@ -229,7 +243,7 @@ export function QuoteCalculator() {
                       : "border-paper/15 text-paper hover:border-mint/45"
                   }`}
                 >
-                  <span className="block font-display text-sm font-bold uppercase tracking-tight">
+                  <span className="block font-sans text-sm font-semibold uppercase tracking-tight">
                     {tier.label}
                   </span>
                   <span
@@ -247,15 +261,13 @@ export function QuoteCalculator() {
       ) : null}
 
       <fieldset disabled={!equipmentId} className={equipmentId ? "" : "opacity-40"}>
-        <legend className="flex items-center gap-3 text-mint">
-          <Sparkle className="size-3.5" />
-          <span className="t-label">{quoteCopy.zoneLegend}</span>
+        <legend className="text-sm font-semibold text-mint">
+          {quoteCopy.zoneLegend}
         </legend>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {zoneOptions.map((zone, index) => (
+          {zoneOptions.map((zone) => (
             <OptionCard
               key={zone.id}
-              code={`0${index + 1}`}
               label={zone.name}
               hint={zone.surchargeLabel}
               isSelected={zoneId === zone.id}
@@ -267,45 +279,23 @@ export function QuoteCalculator() {
 
       {municipalities.length > 0 ? (
         <fieldset>
-          <legend className="t-label text-mint">
+          <legend className="text-sm font-semibold text-mint">
             {quoteCopy.municipalityLegend}
           </legend>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {municipalities.map((place) => {
-              const isSelected = municipality === place.name;
-
-              return (
-                <button
-                  key={place.name}
-                  type="button"
-                  aria-pressed={isSelected}
-                  onClick={() =>
-                    setMunicipality((current) =>
-                      current === place.name ? null : place.name,
-                    )
-                  }
-                  className={`border px-3 py-1.5 text-left transition-colors duration-200 ${
-                    isSelected
-                      ? "border-mint bg-mint text-navy"
-                      : "border-paper/15 text-paper/80 hover:border-mint/45 hover:text-mint"
-                  }`}
-                >
-                  <span className="block font-display text-xs font-bold uppercase tracking-wide">
-                    {place.name}
-                  </span>
-                  {"note" in place && place.note ? (
-                    <span
-                      className={`mt-1 block text-[0.65rem] font-normal normal-case tracking-normal ${
-                        isSelected ? "text-navy/70" : "text-paper/55"
-                      }`}
-                    >
-                      {place.note}
-                    </span>
-                  ) : null}
-                </button>
-              );
-            })}
-          </div>
+          <select
+            value={municipality ?? ""}
+            onChange={(event) => setMunicipality(event.target.value || null)}
+            className="mt-3 h-12 w-full max-w-md border-2 border-paper/15 bg-navy-mid px-3 font-sans text-sm font-semibold uppercase tracking-tight text-paper scheme-dark focus-visible:border-mint"
+          >
+            <option value="">{quoteCopy.municipalityPlaceholder}</option>
+            {municipalities.map((place) => (
+              <option key={place.name} value={place.name}>
+                {"note" in place && place.note
+                  ? `${place.name} — ${place.note}`
+                  : place.name}
+              </option>
+            ))}
+          </select>
         </fieldset>
       ) : null}
 
@@ -320,7 +310,7 @@ export function QuoteCalculator() {
         {estimate?.uncovered ? null : (
           <Sparkle className="pointer-events-none absolute -bottom-10 -right-8 size-40 text-navy/10" />
         )}
-        <p className="t-label">
+        <p className="text-sm font-semibold">
           {estimate?.uncovered
             ? coverageExcluded.surchargeLabel
             : quoteCopy.resultLabel}
@@ -352,8 +342,8 @@ export function QuoteCalculator() {
                 {municipality ?? selectedZone.name}
                 {`. Servicio ${formatUsdRange(estimate.baseRange)}`}
                 {estimate.surcharge !== null && estimate.surcharge > 0
-                  ? ` + traslado ${formatSurcharge(estimate.surcharge)}.`
-                  : " · sin recargo."}
+                  ? ` · ${formatUsd(estimate.surcharge)} por el viaje.`
+                  : " · viaje incluido."}
               </>
             )
           ) : (
@@ -372,7 +362,7 @@ export function QuoteCalculator() {
             </WhatsAppButton>
           ) : (
             <span
-              className={`inline-flex h-14 items-center border-2 px-6 font-display text-sm font-bold uppercase tracking-[0.06em] ${
+              className={`inline-flex h-14 items-center border-2 px-6 font-sans text-sm font-semibold uppercase tracking-[0.06em] ${
                 estimate?.uncovered
                   ? "border-paper/20 text-paper/40"
                   : "border-navy/20 text-navy/40"

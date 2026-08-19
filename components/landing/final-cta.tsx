@@ -1,12 +1,8 @@
-import type { CSSProperties } from "react";
-import { Sparkle } from "@/components/landing/marks";
+import SplitText from "@/components/react-bits/split-text";
+import { BrandLockup } from "@/components/landing/logo";
 import { Reveal } from "@/components/landing/reveal";
 import { WhatsAppButton } from "@/components/landing/whatsapp-button";
 import { brand, footer } from "@/lib/landing-content";
-import { fitLineSize } from "@/lib/typography";
-
-const navyOutline = { "--outline-color": "var(--navy)" } as CSSProperties;
-const CTA_CAP = "clamp(2rem, 13vw, 7.25rem)";
 
 export function FinalCta() {
   return (
@@ -19,36 +15,23 @@ export function FinalCta() {
         aria-hidden="true"
         className="pointer-events-none absolute -left-32 -top-32 size-152 rounded-full border-2 border-navy/10"
       />
-      <Sparkle className="pointer-events-none absolute -bottom-24 -right-16 size-96 text-navy/6" />
 
       <div className="shell relative">
         <div className="flex items-center gap-4 border-b-2 border-navy/20 pb-5">
           <span className="pulse-dot size-2 rounded-full bg-navy" />
-          <p id="cierre-title" className="t-label">
+          <p id="cierre-title" className="text-sm font-semibold">
             {footer.ctaTitle}
           </p>
-          <span className="t-label ml-auto hidden text-navy/70 sm:block">
-            {brand.coords}
-          </span>
         </div>
 
-        <h2 className="t-hero mt-12">
-          {footer.ctaLines.map((line, index) => (
-            <Reveal
-              key={line}
-              as="span"
-              delay={index * 90}
-              distance="0.4em"
-              className={`block ${index === footer.ctaLines.length - 1 ? "t-outline" : ""}`}
-              style={{
-                fontSize: fitLineSize(line, CTA_CAP),
-                ...(index === footer.ctaLines.length - 1 ? navyOutline : null),
-              }}
-            >
-              {line}
-            </Reveal>
-          ))}
-        </h2>
+        <SplitText
+          tag="h2"
+          text={footer.ctaLines.join(" ")}
+          className="t-hero mt-12 max-w-5xl text-left text-navy"
+          textAlign="left"
+          splitType="words"
+          delay={50}
+        />
 
         <Reveal
           delay={220}
@@ -58,14 +41,18 @@ export function FinalCta() {
             {footer.ctaBody}
           </p>
           <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <p className="t-label max-w-50 text-navy/70">
-              {brand.specialization} · {brand.location}
+            <p className="max-w-50 text-sm font-semibold text-navy/70">
+              {brand.specialization} en {brand.location}
             </p>
             <WhatsAppButton messageKey="schedule" variant="ink">
               {footer.cta}
             </WhatsAppButton>
           </div>
         </Reveal>
+
+        <div className="mt-12">
+          <BrandLockup size="md" tone="on-light" />
+        </div>
       </div>
     </section>
   );

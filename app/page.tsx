@@ -20,9 +20,9 @@ export default function Home() {
         <Statement />
         <Services />
         <QuoteSection />
+        <Process />
         <HallEffect />
         <Benefits />
-        <Process />
         <Faq />
         <FinalCta />
       </main>
