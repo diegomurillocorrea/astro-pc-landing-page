@@ -52,8 +52,8 @@
 
 .sm-logo-img {
   display: block;
-  height: 48px;
-  width: 48px;
+  height: 56px;
+  width: 56px;
   object-fit: contain;
   mix-blend-mode: screen;
 }
@@ -204,6 +204,14 @@
   font-size: 1rem;
   font-weight: 500;
   color: var(--sm-accent, #c3ffdc);
+}
+
+.sm-socials-note {
+  margin: 0;
+  max-width: 16rem;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.62);
 }
 
 .sm-socials-list {

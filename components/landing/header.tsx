@@ -5,8 +5,9 @@ import Magnet from "@/components/react-bits/magnet";
 import StaggeredMenu from "@/components/react-bits/staggered-menu";
 import { BrandLockup } from "@/components/landing/logo";
 import { WhatsAppButton } from "@/components/landing/whatsapp-button";
-import { brand, navLinks } from "@/lib/landing-content";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { brand, contact, navLinks } from "@/lib/landing-content";
+import { scrollPageToTop } from "@/lib/scroll-to-top";
+import { getDisplayPhone, getTelHref, getWhatsAppUrl } from "@/lib/whatsapp";
 
 const NAVY_MID = "#123a5c";
 const MINT = "#c3ffdc";
@@ -94,7 +95,7 @@ function NavItem({ href, label, isActive }: Omit<NavItemProps, "index">) {
       <a
         href={href}
         aria-current={isActive ? "true" : undefined}
-        className="group flex items-baseline py-2"
+        className="group flex items-baseline py-1.5"
       >
         <span className="relative block h-[1.15em] overflow-hidden font-sans text-sm font-semibold">
           <span
@@ -120,12 +121,14 @@ export function Header() {
   const activeHref = useActiveNavHref(navHrefs);
   const allowsHoverMotion = useAllowsHoverMotion();
   const whatsappUrl = getWhatsAppUrl("schedule");
+  const displayPhone = getDisplayPhone();
+  const telHref = getTelHref();
 
   return (
     <>
       <header className="sticky top-0 z-50 hidden border-b border-paper/12 bg-navy/80 backdrop-blur-xl md:block">
-        <div className="shell flex h-20 items-center justify-between gap-4 lg:gap-8">
-          <a href="#inicio" className="min-w-0">
+        <div className="shell flex h-18 items-center justify-between gap-4 lg:gap-8">
+          <a href="#inicio" className="min-w-0" onClick={scrollPageToTop}>
             <BrandLockup priority size="md" />
           </a>
 
@@ -142,7 +145,19 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 lg:gap-5">
+            <a
+              href={telHref}
+              aria-label={`Llamar a ${brand.name} al ${displayPhone}`}
+              className="hidden text-right xl:block"
+            >
+              <span className="block font-sans text-sm font-semibold text-paper transition-colors hover:text-mint">
+                {displayPhone}
+              </span>
+              <span className="mt-0.5 block text-[0.6875rem] leading-snug text-paper/62">
+                {contact.hoursShort}
+              </span>
+            </a>
             <Magnet padding={40} magnetStrength={6} disabled={!allowsHoverMotion}>
               <WhatsAppButton messageKey="schedule" variant="compact">
                 WhatsApp
@@ -159,18 +174,23 @@ export function Header() {
           isFixed
           position="right"
           items={menuItems}
-          socialItems={[{ label: "Agendar por WhatsApp", link: whatsappUrl }]}
+          socialItems={[
+            { label: contact.whatsappLabel, link: whatsappUrl },
+            { label: `${contact.callLabel} ${displayPhone}`, link: telHref },
+          ]}
           displaySocials
           displayItemNumbering={false}
           logoUrl={LOGO_SRC}
           logoAlt={brand.name}
           brandName={brand.name}
+          onLogoClick={scrollPageToTop}
           colors={[NAVY_MID, MINT]}
           accentColor={MINT}
           menuButtonColor={PAPER}
           openMenuButtonColor={MINT}
           changeMenuColorOnOpen
-          socialsTitle="WhatsApp"
+          socialsTitle="Contacto"
+          socialNote={`${contact.hours} ${contact.closed}`}
         />
       </div>
     </>

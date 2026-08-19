@@ -100,9 +100,9 @@ export const departments: Department[] = [
         districts: [
           district("Sonsonate", 0),
           district("Sonzacate", 0),
-          district("Nahulingo"),
-          district("San Antonio del Monte"),
-          district("Santo Domingo de Guzmán"),
+          district("Nahulingo", 0),
+          district("San Antonio del Monte", 0),
+          district("Santo Domingo de Guzmán", 0),
         ],
       },
       {
@@ -181,7 +181,7 @@ export const departments: Department[] = [
       {
         name: "La Libertad Norte",
         districts: [
-          district("Quezaltepeque"),
+          district("Quezaltepeque", 5),
           district("San Matías"),
           district("San Pablo Tacachico"),
         ],
@@ -190,7 +190,7 @@ export const departments: Department[] = [
         name: "La Libertad Centro",
         districts: [
           district("San Juan Opico", 10),
-          district("Ciudad Arce"),
+          district("Ciudad Arce", 10),
         ],
       },
       {
@@ -207,7 +207,7 @@ export const departments: Department[] = [
         name: "La Libertad Este",
         districts: [
           district("Antiguo Cuscatlán", 0),
-          district("Huizúcar"),
+          district("Huizúcar", 5),
           district("Nuevo Cuscatlán", 5),
           district("San José Villanueva"),
           district("Zaragoza", 10),
@@ -237,7 +237,7 @@ export const departments: Department[] = [
         districts: [
           district("Aguilares"),
           district("El Paisnal"),
-          district("Guazapa"),
+          district("Guazapa", 5),
         ],
       },
       {
@@ -250,7 +250,7 @@ export const departments: Department[] = [
           district("Ilopango", 10),
           district("San Martín", 10),
           district("Soyapango", 0),
-          district("Tonacatepeque"),
+          district("Tonacatepeque", 5),
         ],
       },
       {
@@ -595,10 +595,91 @@ export function departmentHasCoverage(department: Department): boolean {
   );
 }
 
+export function listCoveredDepartmentNames(): string[] {
+  return departments
+    .filter(departmentHasCoverage)
+    .map((department) => department.name);
+}
+
 export function formatPlaceLabel(
   department: string,
   municipality: string,
   districtName: string,
 ): string {
   return `${districtName}, ${municipality}, ${department}`;
+}
+
+export type PlaceHit = {
+  departmentName: string;
+  municipalityName: string;
+  district: District;
+};
+
+type IndexedPlace = PlaceHit & {
+  districtFold: string;
+  municipalityFold: string;
+  departmentFold: string;
+};
+
+function foldText(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+const placeIndex: IndexedPlace[] = departments.flatMap((department) =>
+  department.municipalities.flatMap((municipality) =>
+    municipality.districts.map((item) => ({
+      departmentName: department.name,
+      municipalityName: municipality.name,
+      district: item,
+      districtFold: foldText(item.name),
+      municipalityFold: foldText(municipality.name),
+      departmentFold: foldText(department.name),
+    })),
+  ),
+);
+
+function rankPlace(place: IndexedPlace, needle: string): number {
+  if (place.districtFold === needle) return 0;
+  if (place.districtFold.startsWith(needle)) return 1;
+  if (place.districtFold.includes(needle)) return 2;
+  if (place.municipalityFold === needle) return 3;
+  if (place.municipalityFold.startsWith(needle)) return 4;
+  if (place.municipalityFold.includes(needle)) return 5;
+  if (place.departmentFold === needle) return 6;
+  if (place.departmentFold.startsWith(needle)) return 7;
+  if (place.departmentFold.includes(needle)) return 8;
+  return 99;
+}
+
+/** Busca pueblo o ciudad por nombre. No hace falta saber el distrito oficial. */
+export function searchPlaces(query: string, limit = 8): PlaceHit[] {
+  const needle = foldText(query);
+
+  if (needle.length < 2) {
+    return [];
+  }
+
+  return placeIndex
+    .map((item) => ({ item, rank: rankPlace(item, needle) }))
+    .filter((entry) => entry.rank < 99)
+    .sort((left, right) => {
+      if (left.rank !== right.rank) {
+        return left.rank - right.rank;
+      }
+
+      return left.item.district.name.localeCompare(
+        right.item.district.name,
+        "es",
+      );
+    })
+    .slice(0, limit)
+    .map(({ item }) => ({
+      departmentName: item.departmentName,
+      municipalityName: item.municipalityName,
+      district: item.district,
+    }));
 }

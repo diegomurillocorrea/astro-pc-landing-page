@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type MouseEvent as ReactMouseEvent,
 } from "react";
 import { gsap } from "gsap";
 import "./staggered-menu.css";
@@ -43,12 +44,15 @@ type StaggeredMenuProps = {
   isFixed?: boolean;
   closeOnClickAway?: boolean;
   socialsTitle?: string;
+  socialNote?: string;
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
+  onLogoClick?: (event: ReactMouseEvent<HTMLAnchorElement>) => void;
 };
 
 const OPEN_LABEL = "Menú";
 const CLOSE_LABEL = "Cerrar";
+const HTTP_LINK = /^https?:/i;
 
 export default function StaggeredMenu({
   position = "right",
@@ -68,8 +72,10 @@ export default function StaggeredMenu({
   isFixed = false,
   closeOnClickAway = true,
   socialsTitle = "Contacto",
+  socialNote,
   onMenuOpen,
   onMenuClose,
+  onLogoClick,
 }: StaggeredMenuProps) {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
@@ -493,14 +499,22 @@ export default function StaggeredMenu({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Navegación principal">
-        <a href="#inicio" className="sm-logo" aria-label={logoAlt}>
+        <a
+          href="#inicio"
+          className="sm-logo"
+          aria-label={logoAlt}
+          onClick={(event) => {
+            onLogoClick?.(event);
+            closeMenu();
+          }}
+        >
           <img
             src={logoUrl}
             alt={logoAlt}
             className="sm-logo-img"
             draggable={false}
-            width={48}
-            height={48}
+            width={56}
+            height={56}
           />
           {brandName ? <span className="sm-logo-name">{brandName}</span> : null}
         </a>
@@ -567,19 +581,28 @@ export default function StaggeredMenu({
             <div className="sm-socials" aria-label={socialsTitle}>
               <h3 className="sm-socials-title">{socialsTitle}</h3>
               <ul className="sm-socials-list" role="list">
-                {socialItems.map((item, i) => (
-                  <li key={item.label + i} className="sm-socials-item">
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="sm-socials-link"
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
+                {socialItems.map((item, i) => {
+                  const isExternal = HTTP_LINK.test(item.link);
+
+                  return (
+                    <li key={item.label + i} className="sm-socials-item">
+                      <a
+                        href={item.link}
+                        {...(isExternal
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : null)}
+                        className="sm-socials-link"
+                        onClick={closeMenu}
+                      >
+                        {item.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
+              {socialNote ? (
+                <p className="sm-socials-note">{socialNote}</p>
+              ) : null}
             </div>
           )}
         </div>

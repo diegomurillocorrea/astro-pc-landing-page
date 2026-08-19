@@ -1,58 +1,43 @@
-import SplitText from "@/components/react-bits/split-text";
-import { BrandLockup } from "@/components/landing/logo";
+import { LandingLightfall } from "@/components/landing/landing-lightfall";
 import { Reveal } from "@/components/landing/reveal";
-import { WhatsAppButton } from "@/components/landing/whatsapp-button";
-import { brand, footer } from "@/lib/landing-content";
+import { footer } from "@/lib/landing-content";
+
+const CTA_CAP = "clamp(2.5rem, 10vw, 10rem)";
+const CTA_CHAR_RATIO = 0.65;
+const longestCtaLine = footer.ctaLines.reduce(
+  (longest, line) => (line.length > longest.length ? line : longest),
+  "",
+);
+const ctaSize = `min(${CTA_CAP}, calc(100cqw / ${(longestCtaLine.length * CTA_CHAR_RATIO).toFixed(2)}))`;
 
 export function FinalCta() {
   return (
     <section
       id="cierre"
-      aria-labelledby="cierre-title"
-      className="section-light relative scroll-mt-24 overflow-hidden bg-mint py-20 text-navy sm:py-28"
+      aria-label={footer.ctaLines.join(". ")}
+      className="section-light relative flex min-h-[min(78vh,52rem)] scroll-mt-24 items-center overflow-hidden bg-mint py-20 text-navy sm:py-28"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -left-32 -top-32 size-152 rounded-full border-2 border-navy/10"
-      />
+      <LandingLightfall />
 
-      <div className="shell relative">
-        <div className="flex items-center gap-4 border-b-2 border-navy/20 pb-5">
-          <span className="pulse-dot size-2 rounded-full bg-navy" />
-          <p id="cierre-title" className="text-sm font-semibold">
-            {footer.ctaTitle}
-          </p>
-        </div>
-
-        <SplitText
-          tag="h2"
-          text={footer.ctaLines.join(" ")}
-          className="t-hero mt-12 max-w-5xl text-left text-navy"
-          textAlign="left"
-          splitType="words"
-          delay={50}
-        />
-
-        <Reveal
-          delay={220}
-          className="mt-12 flex flex-col gap-8 border-t-2 border-navy/20 pt-8 lg:flex-row lg:items-center lg:justify-between"
-        >
-          <p className="max-w-md text-base leading-relaxed text-navy/70">
-            {footer.ctaBody}
-          </p>
-          <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-            <p className="max-w-50 text-sm font-semibold text-navy/70">
-              {brand.specialization} en {brand.location}
-            </p>
-            <WhatsAppButton messageKey="schedule" variant="ink">
-              {footer.cta}
-            </WhatsAppButton>
-          </div>
-        </Reveal>
-
-        <div className="mt-12">
-          <BrandLockup size="md" tone="on-light" />
-        </div>
+      <div className="shell relative z-1 w-full">
+        <h2 className="@container mx-auto w-full text-center">
+          {footer.ctaLines.map((line, index) => (
+            <Reveal
+              key={line}
+              as="span"
+              delay={80 + index * 70}
+              distance="0.5em"
+              className="t-hero block whitespace-nowrap text-navy"
+              style={{
+                fontSize: ctaSize,
+                lineHeight: 0.86,
+                textWrap: "nowrap",
+              }}
+            >
+              {line}
+            </Reveal>
+          ))}
+        </h2>
       </div>
     </section>
   );

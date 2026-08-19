@@ -1,13 +1,14 @@
+import { ContactDetails } from "@/components/landing/contact-details";
 import { BrandLockup } from "@/components/landing/logo";
 import { ArrowUpRight } from "@/components/landing/marks";
-import { brand, footer, hero, navLinks } from "@/lib/landing-content";
+import { brand, contact, footer, hero, navLinks } from "@/lib/landing-content";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 const serviceLinks = [
   { label: "Mantenimiento PS5", href: "#servicios" },
   { label: "Mantenimiento PC Gamer", href: "#servicios" },
-  { label: "Palancas magnéticas DualSense", href: "#efecto-hall" },
-  { label: "Cotizar visita", href: "#cotizar" },
+  { label: "Palancas magnéticas DualSense", href: "#dualsense" },
+  { label: "Ver cuánto te cobramos", href: "#cotizar" },
   { label: "Dónde sí llegamos", href: "#cobertura" },
 ];
 
@@ -51,17 +52,38 @@ export function Footer() {
           <div>
             <BrandLockup showTagline size="md" />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-paper/62">
-              {brand.specialization} en tu casa, en {brand.location}.
+              En {brand.location}. {hero.coverage}{" "}
+              <a
+                href="#cotizar"
+                className="font-semibold text-mint transition-colors hover:text-paper"
+              >
+                {hero.coverageCta}
+              </a>
+              .
             </p>
           </div>
 
           <FooterColumn title="Navegación" links={navLinks} />
           <FooterColumn title="Servicios" links={serviceLinks} />
-          <FooterColumn
-            title="Contacto"
-            isExternal
-            links={[{ label: "WhatsApp", href: getWhatsAppUrl("schedule") }]}
-          />
+          <div>
+            <h3 className="text-sm font-semibold text-paper/62">Contacto</h3>
+            <ul className="mt-5 space-y-3">
+              <li>
+                <a
+                  href={getWhatsAppUrl("schedule")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 font-sans text-sm font-semibold text-paper/80 transition-colors hover:text-mint"
+                >
+                  {contact.whatsappLabel}
+                  <ArrowUpRight className="size-3 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100" />
+                </a>
+              </li>
+            </ul>
+            <div className="mt-5">
+              <ContactDetails variant="stack" />
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-4 py-8 sm:flex-row sm:items-end sm:justify-between">
@@ -83,7 +105,7 @@ export function Footer() {
           </div>
           <p className="flex items-center gap-2 text-sm text-paper/62">
             <span className="pulse-dot size-1.5 rounded-full bg-mint" />
-            {hero.status} · {brand.region}
+            {hero.status} · {contact.hoursShort}
           </p>
         </div>
       </div>

@@ -1,12 +1,20 @@
-import { Plus } from "@/components/landing/marks";
+import { FaqAccordion } from "@/components/landing/faq-accordion";
 import { Reveal } from "@/components/landing/reveal";
-import { faqs, guarantees } from "@/lib/landing-content";
+import MagicBento from "@/components/react-bits/magic-bento";
+import { guarantees } from "@/lib/landing-content";
+
+const GUARANTEE_CARDS = guarantees.map((item) => ({
+  color: "#03182a",
+  label: item.title,
+  title: item.body,
+  wrapLabel: true,
+}));
 
 export function Faq() {
   return (
     <section
       id="preguntas"
-      className="relative scroll-mt-24 overflow-hidden bg-ink py-20 sm:py-28"
+      className="relative scroll-mt-24 overflow-x-clip bg-ink py-20 sm:py-28"
     >
       <div
         aria-hidden="true"
@@ -23,46 +31,26 @@ export function Faq() {
           </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <Reveal as="ul" className="space-y-6">
-              {guarantees.map((item) => (
-                <li key={item.title} className="border-l-2 border-mint pl-5">
-                  <h3 className="t-heading text-lg uppercase text-paper">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-paper/60">
-                    {item.body}
-                  </p>
-                </li>
-              ))}
-            </Reveal>
-          </div>
+        <Reveal className="mt-12">
+          <MagicBento
+            cards={GUARANTEE_CARDS}
+            textAutoHide={false}
+            enableStars
+            enableSpotlight
+            enableBorderGlow
+            enableTilt
+            enableMagnetism
+            clickEffect={false}
+            spotlightRadius={300}
+            particleCount={12}
+            glowColor="195, 255, 220"
+            listLabel="Garantías"
+          />
+        </Reveal>
 
-          <Reveal delay={100} className="border-t border-paper/15">
-            {faqs.map((item) => (
-              <details
-                key={item.question}
-                className="group border-b border-paper/15"
-              >
-                <summary className="flex cursor-pointer list-none items-start gap-4 py-6 sm:gap-6">
-                  <span className="t-heading flex-1 text-[clamp(1.0625rem,1.9vw,1.5rem)] text-paper transition-colors group-hover:text-mint">
-                    {item.question}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="mt-1 grid size-9 shrink-0 place-items-center rounded-full border border-paper/25 text-mint transition-all duration-300 group-open:rotate-45 group-open:border-mint group-open:bg-mint group-open:text-navy"
-                  >
-                    <Plus className="size-3.5" />
-                  </span>
-                </summary>
-                <p className="pb-7 text-sm leading-relaxed text-paper/65 sm:pr-15">
-                  {item.answer}
-                </p>
-              </details>
-            ))}
-          </Reveal>
-        </div>
+        <Reveal delay={100} className="mt-14 sm:mt-16">
+          <FaqAccordion />
+        </Reveal>
       </div>
     </section>
   );

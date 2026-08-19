@@ -34,7 +34,7 @@ export const quoteEquipment = [
   {
     id: "dualsense" as const,
     code: "03",
-    label: "Mando DualSense",
+    label: "DualSense PS5",
     short: "DualSense",
     service: joystickService.title,
     min: joystickService.tiers[0].min,

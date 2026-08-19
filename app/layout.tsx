@@ -16,30 +16,34 @@ const chakraPetch = Chakra_Petch({
 
 export const metadata: Metadata = {
   title: {
-    default: "Astro PC | PS5, PC Gamer y DualSense en tu casa",
+    default: "Astro PC | Mantenimiento a PS5, DualSense y PC gamer a domicilio",
     template: "%s | Astro PC",
   },
   description:
-    "Astro PC va a tu casa en San Salvador. Limpiamos la PS5 o la PC gamer y, si el mando DualSense se te va solo, le ponemos palancas magnéticas.",
+    "Mantenimiento a PS5, DualSense de PS5 y PC gamer a domicilio en San Salvador. No en todos los distritos: en Ver precio ves cuánto te cobran. Metal líquido en la PS5, pasta térmica en la PC o palancas magnéticas, según lo que toque.",
   keywords: [
     "Astro PC",
+    "mantenimiento a domicilio",
     "mantenimiento PS5",
     "metal líquido PS5",
     "metal líquido alemán",
+    "pasta térmica PC",
+    "mantenimiento DualSense",
     "PC Gamer",
-    "DualSense",
+    "DualSense PS5",
     "palancas magnéticas",
     "San Salvador",
     "Santa Tecla",
+    "a domicilio",
     "en tu casa",
   ],
   icons: {
     icon: "/astro-logo.png",
   },
   openGraph: {
-    title: "Astro PC | PS5, PC Gamer y DualSense en tu casa",
+    title: "Astro PC | Mantenimiento a PS5, DualSense y PC gamer a domicilio",
     description:
-      "Mantenimiento de PS5, PC gamer y mandos DualSense en tu casa, en San Salvador y alrededores.",
+      "Mantenimiento a PS5, DualSense de PS5 y PC gamer a domicilio. Vamos a tu casa en San Salvador, no en todos los distritos.",
     locale: "es_SV",
     type: "website",
   },

@@ -12,18 +12,12 @@ export function Process() {
       className="relative scroll-mt-24 overflow-hidden bg-navy py-20 sm:py-28"
     >
       <div className="shell relative">
-        <div className="flex flex-col gap-6 border-b border-paper/12 pb-10 lg:flex-row lg:items-end lg:justify-between">
+        <div className="border-b border-paper/12 pb-10">
           <Reveal>
             <h2 className="t-section text-paper">
-              Así
-              <span className="ml-3 inline-block text-mint">vamos</span>
+              La visita
+              <span className="ml-3 inline-block text-mint">en tu casa</span>
             </h2>
-          </Reveal>
-          <Reveal delay={80} className="max-w-xs">
-            <p className="text-sm leading-relaxed text-paper/60">
-              Cuatro pasos, siempre en el mismo orden y siempre frente a ti. Sin
-              sorpresas.
-            </p>
           </Reveal>
         </div>
 

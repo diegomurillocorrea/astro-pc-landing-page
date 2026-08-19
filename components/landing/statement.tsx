@@ -4,35 +4,37 @@ import {
   PcMark,
   Ps5Mark,
 } from "@/components/landing/hardware-art";
+import { HomeVisitPoints } from "@/components/landing/benefits";
+import { LandingTextLoop } from "@/components/landing/landing-text-loop";
 import { ArrowUpRight } from "@/components/landing/marks";
-import { Marquee } from "@/components/landing/marquee";
 import { Reveal } from "@/components/landing/reveal";
-import { marqueeItems, specialization } from "@/lib/landing-content";
+import { specialization } from "@/lib/landing-content";
+import { fitLineSize } from "@/lib/typography";
 
-const supportedMarks = [Ps5Mark, PcMark, DualSenseMark] as const;
+const supportedMarks = [Ps5Mark, DualSenseMark, PcMark] as const;
+
+const HEADLINE_SIZE = fitLineSize(
+  specialization.headline,
+  "clamp(1.875rem, 7vw, 5.75rem)",
+);
 
 export function Statement() {
   return (
-    <section aria-label={specialization.headline} className="relative overflow-hidden bg-ink">
-      <div className="relative z-10 -mt-px origin-center rotate-[-1.15deg] scale-[1.04] border-y-2 border-navy bg-mint py-3 sm:py-4">
-        <Marquee
-          items={marqueeItems}
-          duration={38}
-          className="text-navy"
-          itemClassName="gap-6 pr-6 font-display text-[clamp(1.125rem,2.4vw,2rem)] font-bold uppercase tracking-[-0.02em]"
-          markClassName="size-3 shrink-0 sm:size-4"
-        />
-      </div>
+    <section aria-label={specialization.headline} className="relative overflow-x-clip bg-ink">
+      <LandingTextLoop />
 
       <div className="shell relative py-20 sm:py-28">
-        <SplitText
-          tag="h2"
-          text={specialization.headline}
-          className="t-display max-w-5xl text-left text-paper"
-          textAlign="left"
-          splitType="words"
-          delay={40}
-        />
+        <div className="@container min-w-0" style={{ "--display-size": HEADLINE_SIZE }}>
+          <SplitText
+            tag="h2"
+            text={specialization.headline}
+            className="t-display w-full text-left text-nowrap text-paper"
+            textAlign="left"
+            splitType="words"
+            delay={40}
+            whiteSpace="nowrap"
+          />
+        </div>
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-20">
           <div className="lg:order-2">
@@ -90,6 +92,8 @@ export function Statement() {
             </Reveal>
           </div>
         </div>
+
+        <HomeVisitPoints />
       </div>
     </section>
   );

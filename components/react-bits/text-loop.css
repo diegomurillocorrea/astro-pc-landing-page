@@ -1,0 +1,35 @@
+.text-loop {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.text-loop-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.text-loop-text {
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
+  user-select: none;
+}
+
+.text-loop-measure {
+  visibility: hidden;
+  pointer-events: none;
+  font-family: var(--font-chakra-petch), ui-sans-serif, system-ui, sans-serif;
+}
+
+.landing-text-loop-frame {
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  background: var(--ink);
+}
+
+.landing-text-loop-frame .landing-text-loop {
+  width: 108%;
+  margin-left: -4%;
+  overflow: hidden;
+}

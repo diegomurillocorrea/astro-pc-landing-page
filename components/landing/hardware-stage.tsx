@@ -1,7 +1,7 @@
 "use client";
 
-import { useReducedMotion } from "motion/react";
-import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import Magnet from "@/components/react-bits/magnet";
 import {
   DualSenseMark,
@@ -13,21 +13,26 @@ const pieces = [
   {
     id: "ps5",
     label: "PlayStation 5",
-    className: "left-[6%] top-[14%] w-[30%] text-paper",
+    className: "w-[min(100%,8.25rem)] justify-self-start self-start text-paper",
+    rotate: -16,
     delay: 0,
     Mark: Ps5Mark,
   },
   {
     id: "pc",
     label: "PC gamer",
-    className: "right-[4%] top-[8%] w-[36%] text-mint",
+    className:
+      "mt-16 w-[min(100%,9rem)] justify-self-end self-start text-mint sm:mt-20",
+    rotate: 13,
     delay: 0.4,
     Mark: PcMark,
   },
   {
     id: "dualsense",
-    label: "Mando DualSense",
-    className: "bottom-[10%] left-[16%] w-[62%] text-paper",
+    label: "DualSense PS5",
+    className:
+      "col-span-2 ml-[18%] w-[min(58%,13.75rem)] justify-self-start text-paper",
+    rotate: -12,
     delay: 0.8,
     Mark: DualSenseMark,
   },
@@ -35,31 +40,59 @@ const pieces = [
 
 export function HardwareStage() {
   const prefersReducedMotion = useReducedMotion();
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(true);
+
+  useEffect(() => {
+    const node = stageRef.current;
+
+    if (!node) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "120px" },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const shouldAnimate = isInView && !prefersReducedMotion;
 
   return (
-    <div className="relative mx-auto aspect-[4/5] w-full max-w-md lg:max-w-none">
+    <div
+      ref={stageRef}
+      className="relative grid w-full grid-cols-2 items-start gap-x-12 gap-y-16 overflow-visible sm:gap-x-16 sm:gap-y-20 lg:gap-x-20 lg:gap-y-24"
+    >
       {pieces.map((piece) => (
-        <div key={piece.id} className={`absolute z-10 ${piece.className}`}>
+        <div key={piece.id} className={piece.className}>
           <Magnet
-            padding={28}
+            padding={16}
             magnetStrength={8}
-            disabled={Boolean(prefersReducedMotion)}
+            disabled={Boolean(prefersReducedMotion) || !isInView}
             wrapperClassName="block w-full"
           >
             <motion.div
               aria-hidden="true"
+              initial={{ rotate: piece.rotate }}
               animate={
-                prefersReducedMotion
-                  ? undefined
-                  : { y: [0, -14, 0], rotate: [0, 1.4, 0] }
+                shouldAnimate
+                  ? {
+                      y: [0, -10, 0],
+                      rotate: [piece.rotate, piece.rotate + 1.8, piece.rotate],
+                    }
+                  : { y: 0, rotate: piece.rotate }
               }
               transition={{
                 duration: 5.2,
-                repeat: Infinity,
+                repeat: shouldAnimate ? Infinity : 0,
                 delay: piece.delay,
                 ease: "easeInOut",
               }}
-              className="drop-shadow-[0_18px_40px_color-mix(in_srgb,var(--mint)_18%,transparent)]"
             >
               <piece.Mark />
             </motion.div>

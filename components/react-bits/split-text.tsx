@@ -23,6 +23,7 @@ type SplitTextProps = {
   threshold?: number;
   rootMargin?: string;
   textAlign?: CSSProperties["textAlign"];
+  whiteSpace?: CSSProperties["whiteSpace"];
   tag?: SplitTag;
   onLetterAnimationComplete?: () => void;
 };
@@ -43,6 +44,7 @@ export default function SplitText({
   threshold = 0.1,
   rootMargin = "-100px",
   textAlign = "center",
+  whiteSpace = "normal",
   tag = "p",
   onLetterAnimationComplete,
 }: SplitTextProps) {
@@ -178,12 +180,13 @@ export default function SplitText({
     },
   );
 
+  const isNowrap = whiteSpace === "nowrap";
   const style: CSSProperties = {
     textAlign,
     overflow: "hidden",
-    display: "inline-block",
-    whiteSpace: "normal",
-    wordWrap: "break-word",
+    display: isNowrap ? "block" : "inline-block",
+    whiteSpace,
+    wordWrap: isNowrap ? "normal" : "break-word",
     willChange: prefersReducedMotion ? "auto" : "transform, opacity",
   };
   const Tag = (tag || "p") as ElementType;

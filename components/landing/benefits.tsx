@@ -1,58 +1,20 @@
 import { Reveal } from "@/components/landing/reveal";
-import { TiltCard } from "@/components/landing/tilt-card";
 import { benefits } from "@/lib/landing-content";
 
-const benefitTone = [
-  {
-    shell: "border-2 border-paper/12 bg-navy",
-    title: "text-paper",
-    body: "text-paper/65",
-  },
-  {
-    shell: "bg-mint",
-    title: "text-navy",
-    body: "text-navy/70",
-  },
-  {
-    shell: "bg-ink",
-    title: "text-paper",
-    body: "text-paper/65",
-  },
-];
-
-export function Benefits() {
+/**
+ * Tres razones de la visita, sin repetir el titular del hero.
+ */
+export function HomeVisitPoints() {
   return (
-    <section className="relative overflow-hidden bg-navy-mid py-20 sm:py-28">
-      <div className="shell relative">
-        <Reveal>
-          <h2 className="t-section max-w-3xl text-paper">{benefits.title}</h2>
-        </Reveal>
-
-        <div className="mt-14 grid gap-4 sm:grid-cols-3">
-          {benefits.items.map((item, index) => {
-            const tone = benefitTone[index] ?? benefitTone[0];
-
-            return (
-              <Reveal
-                as="article"
-                key={item.title}
-                delay={index * 110}
-              >
-                <TiltCard className={`h-full p-7 lg:p-9 ${tone.shell}`}>
-                  <h3
-                    className={`t-heading text-[clamp(1.125rem,2.4vw,1.75rem)] uppercase ${tone.title}`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className={`mt-3 text-sm leading-relaxed ${tone.body}`}>
-                    {item.body}
-                  </p>
-                </TiltCard>
-              </Reveal>
-            );
-          })}
-        </div>
-      </div>
-    </section>
+    <Reveal as="ul" className="mt-16 grid gap-8 border-t border-paper/12 pt-10 sm:grid-cols-3 sm:gap-6">
+      {benefits.items.map((item) => (
+        <li key={item.title} className="border-t-2 border-mint/50 pt-5">
+          <h3 className="t-heading text-[clamp(1.05rem,2vw,1.35rem)] uppercase text-paper">
+            {item.title}
+          </h3>
+          <p className="mt-2 text-sm leading-relaxed text-paper/62">{item.body}</p>
+        </li>
+      ))}
+    </Reveal>
   );
 }

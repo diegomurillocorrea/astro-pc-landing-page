@@ -1,15 +1,27 @@
 export const brand = {
   name: "Astro PC",
-  tagline: "PS5, PC Gamer y DualSense en tu casa",
+  tagline: "Mantenimiento a PS5, DualSense y PC gamer a domicilio",
   location: "San Salvador, El Salvador",
-  specialization: "PS5, PC Gamer y mandos DualSense",
+  specialization: "PS5, DualSense de PS5 y PC gamer",
   region: "San Salvador",
+} as const;
+
+export const contact = {
+  phoneLabel: "Teléfono",
+  callLabel: "Llamar",
+  whatsappLabel: "WhatsApp",
+  hoursLabel: "Horario",
+  hours: "Lunes a sábado, 8:00 a.m. a 6:00 p.m.",
+  hoursShort: "Lun–sáb, 8:00 a.m. a 6:00 p.m.",
+  closed: "Domingo no agendamos.",
+  response: "En WhatsApp o por llamada respondemos el mismo día, en horario de atención.",
+  responseShort: "Respondemos el mismo día",
 } as const;
 
 export const navLinks = [
   { href: "#servicios", label: "Servicios" },
-  { href: "#cotizar", label: "Cotizar" },
-  { href: "#proceso", label: "Cómo vamos" },
+  { href: "#cotizar", label: "Ver precio" },
+  { href: "#proceso", label: "La visita" },
   { href: "#preguntas", label: "Preguntas" },
 ] as const;
 
@@ -21,60 +33,76 @@ export const whatsappMessages = {
 } as const;
 
 export const hero = {
-  title: "Astro PC. Mantenimiento de PS5, PC Gamer y mandos DualSense en tu casa.",
+  title:
+    "Astro PC. Mantenimiento a PS5, DualSense de PS5 y PC gamer a domicilio.",
   lines: [
+    { text: "Mantenimiento", variant: "lead" },
     { text: "PS5.", variant: "solid" },
-    { text: "PC Gamer.", variant: "accent" },
     { text: "DualSense.", variant: "solid" },
+    { text: "PC Gamer.", variant: "solid" },
+    { text: "a domicilio.", variant: "accent" },
   ],
-  badge: "en tu casa",
-  kicker: "Somos Astro PC",
   subtitle:
-    "Vamos a tu casa en San Salvador, limpiamos la PS5 o la PC y le ponemos metal líquido alemán. Si el mando se te va solo, le ponemos palancas magnéticas.",
+    "Vamos hasta tu casa en El Salvador. Le damos mantenimiento a tu PlayStation 5, tu PC gamer y tu DualSense.",
+  coverage: "¿Llegamos a tu zona?",
+  coverageCta: "En Ver precio ves si hay visita",
   cta: "Escríbenos por WhatsApp",
-  quoteCta: "Arma tu precio",
+  quoteCta: "Ver cuánto te cobramos",
   status: "Estamos agendando",
 } as const;
 
-export const heroStats = [
-  { value: "$65", label: "Desde este precio", note: "PS5 o PC gamer, según el distrito" },
-  { value: "4", label: "Pasos", note: "Nos escribes, vamos, trabajamos y lo pruebas" },
-  { value: "3", label: "Garantías", note: "Por escrito, antes de irnos" },
+export const heroPrices = [
+  {
+    value: "Desde $65",
+    label: "PC Gamer o PS5",
+    notes: ["Mantenimiento", "Pasta Térmica y Metal Líquido"],
+    href: "#servicios",
+  },
+  {
+    value: "Desde $25",
+    label: "Mando DualSense",
+    notes: ["Drift en Palanca", "Reemplazo a Palanca Magnética"],
+    href: "#servicios",
+  },
+  {
+    value: "Servicio a Domicilio",
+    label: "Tarifa varía según cobertura",
+    notes: [],
+    href: "#cotizar",
+    wrapValue: true,
+  },
 ] as const;
 
 export const marqueeItems = [
-  "PS5",
-  "PC Gamer",
-  "DualSense",
-  "El mando se va solo",
-  "Metal líquido alemán",
-  "Insumos alemanes",
-  "En tu casa",
-  "San Salvador",
-  "Desde $65",
+  "Metal líquido en PS5",
+  "Pasta térmica en PC",
+  "Palancas magnéticas",
+  "Hasta tu casa",
+  "Mantenimiento a Domicilio",
+  "Cobertura en casi todo el país",
 ] as const;
 
 export const specialization = {
-  headline: "Tres equipos. Nada más.",
-  body: "Solo trabajamos PS5, PC gamer y el mando DualSense de PS5. Así el trabajo sale bien. No metemos PS4, Xbox, Nintendo Switch ni consola vintage.",
+  headline: "Nos especializamos en",
+  body: "Solo esos tres. Así el trabajo sale bien. No metemos PS4, Xbox, Nintendo Switch ni consola vintage.",
   supported: [
     {
       code: "01",
       label: "PlayStation 5",
-      note: "La abrimos, le sacamos el polvo y le ponemos metal líquido alemán.",
+      note: "Limpieza interna y metal líquido alemán, para que no se ahogue de calor.",
       href: "#servicios",
     },
     {
       code: "02",
-      label: "PC Gamer",
-      note: "Limpieza a fondo, metal líquido alemán en el procesador y en la gráfica.",
-      href: "#servicios",
+      label: "DualSense PS5",
+      note: "Cambio a palancas magnéticas. El DualSense deja de hacer drift.",
+      href: "#dualsense",
     },
     {
       code: "03",
-      label: "Mando DualSense",
-      note: "Palancas magnéticas para que deje de irse solo.",
-      href: "#efecto-hall",
+      label: "PC Gamer",
+      note: "Limpieza a fondo y pasta térmica nueva en el procesador y en la gráfica.",
+      href: "#servicios",
     },
   ],
   excludedTitle: "Esto no lo atendemos",
@@ -83,40 +111,45 @@ export const specialization = {
 } as const;
 
 export const coverageNote =
-  "Elige departamento, municipio y distrito. Si hay visita, el precio sale en Cotizar. En algunos distritos el viaje va incluido; en otros se suma un cobro fijo.";
+  "En Ver precio escribes tu pueblo: no hace falta saber el distrito. Si hay visita, ves el total: viaje incluido, cobro fijo, o sin servicio.";
 
 export const quoteCopy = {
-  titleLead: "Arma",
-  titleTrail: "tu precio",
-  body: "Elige el equipo y dónde vives. Si hay cobro por el viaje, te sale ahí mismo.",
-  steps: [
-    { code: "1", label: "Equipo" },
-    { code: "2", label: "Lugar" },
-    { code: "3", label: "Precio" },
-  ],
+  titleLead: "Cotiza",
+  titleTrail: "con nosotros",
   equipmentLegend: "¿Qué hay que revisar?",
   dualsenseLegend: "¿Cuántas palancas?",
   zoneLegend: "¿Dónde vives?",
+  placeSearchLegend: "Tu pueblo o ciudad",
+  placeSearchHint:
+    "Escribe el nombre. No hace falta saber el distrito.",
+  placeSearchPlaceholder: "Ej. Mejicanos, Santa Tecla, Soyapango",
+  placeSearchEmpty:
+    "No encontramos ese nombre. Prueba el pueblo o la ciudad.",
+  placeSelectedPrefix: "Lugar:",
+  placeListsToggle: "O elige departamento, municipio y distrito",
   departmentLegend: "Departamento",
   municipalityLegend: "Municipio",
   districtLegend: "Distrito",
   placePlaceholder: "Elegir",
   resultLabel: "Te queda en",
-  resultEmpty: "Elige equipo y distrito para ver el precio.",
+  resultServiceLabel: "El servicio sale",
+  resultEmpty: "Elige el equipo. El precio del servicio te sale de una.",
+  resultNeedsPlace:
+    "Ese es el servicio. Escribe tu pueblo para ver el total con el viaje. No hace falta saber el distrito.",
+  resultNeedsEquipment: "Lugar listo. Elige el equipo para ver el total.",
   resultUncovered: "Ahí no llegamos",
   uncoveredLabel: "Sin servicio",
   uncoveredBody:
-    "En ese distrito no agendamos visitas. Prueba con otro o escríbenos por WhatsApp si tienes duda.",
+    "En ese distrito no agendamos visitas. Prueba con otro pueblo o escríbenos por WhatsApp si tienes duda.",
   baseLabel: "Servicio",
   surchargeLabel: "Viaje",
   disclaimer:
     "El cobro por el viaje es fijo. El mando DualSense sale en rango, según cuántas palancas.",
   cta: "Confirmar por WhatsApp",
-  coverageTitle: "Dónde sí llegamos",
-  coverageToggle: "Ver municipios y distritos",
+  coverageTitle: "Departamentos con visita",
   coverageTeaser:
-    "Elige departamento, municipio y distrito. Si hay cobro por el viaje, te sale ahí mismo.",
-  coverageCta: "Ver departamentos",
+    "No a todos los distritos. Escribe tu pueblo en Ver precio y ves si hay visita.",
+  coverageCta: "Calcular mi visita",
 } as const;
 
 export const maintenanceServices = [
@@ -127,9 +160,9 @@ export const maintenanceServices = [
     amount: 65,
     whatsappKey: "ps5" as const,
     items: [
-      "Le sacamos el polvo de los disipadores y de los conductos.",
-      "Le ponemos metal líquido alemán.",
-      "Queda ventilando mejor, para que no se caliente tanto.",
+      "Le sacamos el polvo de disipadores, ventilador y conductos.",
+      "Le ponemos metal líquido alemán, el que pide la PS5.",
+      "Baja la temperatura. Deja de ahogarse de calor y de hacer ruido.",
     ],
   },
   {
@@ -140,18 +173,19 @@ export const maintenanceServices = [
     whatsappKey: "pc" as const,
     items: [
       "Abrimos el gabinete y limpiamos ventiladores, gráfica, tarjeta madre y fuente.",
-      "Metal líquido alemán en el procesador y en la gráfica.",
-      "Acomodamos cables para que corra mejor el aire.",
+      "Pasta térmica nueva en el procesador y en la gráfica.",
+      "Acomodamos cables para que el aire corra y no se caliente tanto.",
     ],
   },
 ] as const;
 
 export const joystickService = {
   id: "joysticks",
-  title: "El mando DualSense hace drift",
+  title: "El mando te hace drift",
   subtitle: "Le cambiamos las palancas por unas magnéticas",
   description:
-    "Las palancas normales se raspan y el personaje se mueve solo. Las magnéticas no tienen fricción: el DualSense deja de hacer drift.",
+    "El drift sale cuando las palancas se raspan por dentro. Las magnéticas no tienen fricción: el DualSense deja de irse solo.",
+  priceRange: "$25.00 – $50.00",
   whatsappKey: "joysticks" as const,
   tiers: [
     {
@@ -178,10 +212,9 @@ export const joystickService = {
   ],
 } as const;
 
-export const serviceCta = "Cotizar este servicio";
+export const serviceCta = "Ver el total con el viaje";
 
 export const benefits = {
-  title: "¿Por qué en tu casa?",
   items: [
     {
       title: "Tu equipo no se mueve",
@@ -198,59 +231,65 @@ export const benefits = {
   ],
 } as const;
 
-export const hallEffect = {
-  title: "El mando hace drift",
-  subtitle: "Se quita cambiando las palancas",
-  body: "Las palancas baratas se raspan por dentro y el analogito queda loco: el personaje se mueve solo. Eso es el drift. Nosotros ponemos palancas magnéticas: un imán lee el movimiento, no hay pieza rozando. El DualSense de PS5 deja de hacerlo.",
-  exclusive: "Solo mandos DualSense de PS5.",
-  cta: "Cotizar las palancas",
-  analogLabel: "Palanca normal",
-  analogTitle: "Hace drift",
-  analogBody: "Con el uso se raspa por dentro. Un día el personaje camina solo.",
-  magneticLabel: "Palanca magnética",
-  magneticTitle: "Sin drift",
-  magneticBody: "Va por imán. El mando se queda quieto cuando tú lo dejas quieto.",
-} as const;
-
 export const processSteps = [
   {
     step: "1",
-    title: "Nos escribes",
-    body: "Dinos el equipo, la zona y cuándo puedes. Confirmamos día y hora por WhatsApp.",
+    title: "Escríbenos",
+    body: "Por WhatsApp. Dinos el equipo, tu pueblo y cuándo puedes. Cuadramos día y hora.",
   },
   {
     step: "2",
-    title: "Revisamos en tu casa",
-    body: "Vemos el equipo ahí mismo y te explicamos qué le vamos a hacer, antes de tocarlo.",
+    title: "Lo vemos juntos",
+    body: "Revisamos el equipo en tu casa y te explicamos qué le vamos a hacer, antes de tocarlo.",
   },
   {
     step: "3",
-    title: "Lo dejamos listo",
-    body: "Limpieza, metal líquido alemán o cambio de palancas, según lo que cotizamos.",
+    title: "Hacemos el trabajo",
+    body: "Limpieza, metal líquido, pasta térmica o palancas magnéticas, según lo que cotizamos. Tú estás ahí.",
   },
   {
     step: "4",
-    title: "Lo pruebas con nosotros",
-    body: "Medimos temperaturas y lo corremos. Sales con el equipo probado y la garantía por escrito.",
+    title: "Lo pruebas",
+    body: "Lo encendemos contigo y medimos temperaturas. Sales con el equipo listo y la garantía por escrito.",
   },
 ] as const;
 
 export const guarantees = [
   {
     title: "Lo ves funcionar",
-    body: "Medimos temperaturas y lo prendemos contigo, antes y después del trabajo.",
+    body: "Lo encendemos contigo. Ves las temperaturas antes y después, no de oídas.",
   },
   {
     title: "Garantía del trabajo",
-    body: "Por escrito: la mano de obra y que los repuestos quedaron bien puestos.",
+    body: "Te queda por escrito: cubre la mano de obra y que el repuesto quedó bien instalado.",
   },
   {
     title: "Garantía de las palancas",
-    body: "Si las palancas magnéticas se vuelven a ir solas por defecto, las cubrimos.",
+    body: "Si las magnéticas vuelven a irse solas por un defecto, las cubrimos.",
   },
 ] as const;
 
 export const faqs = [
+  {
+    question: "¿Cómo sé cuánto me van a cobrar?",
+    answer:
+      "En Ver precio eliges el equipo: el servicio te sale de una. Luego escribes tu pueblo o ciudad — no hace falta saber el distrito — y ves el total: si hay visita y si el viaje va incluido o lleva un cobro fijo.",
+  },
+  {
+    question: "¿De verdad van a mi casa?",
+    answer:
+      "Sí, si tu distrito está cubierto. El mantenimiento es en tu casa: no dejas el equipo en un taller. Coordinamos por WhatsApp y llegamos con las herramientas.",
+  },
+  {
+    question: "¿A qué hora atienden y cómo los contacto?",
+    answer:
+      "De lunes a sábado, de 8:00 a.m. a 6:00 p.m. Domingo no agendamos. WhatsApp y la llamada van al mismo número: lo ves en el menú, en el cierre y en el pie. En horario de atención respondemos el mismo día. WhatsApp es lo más rápido para agendar.",
+  },
+  {
+    question: "¿Van a todos los distritos de San Salvador?",
+    answer:
+      "No. Hay distritos con visita incluida, otros con cobro de viaje y otros sin servicio. En Ver precio escribes tu pueblo y te sale ahí mismo.",
+  },
   {
     question: "¿Cuánto tardan en la visita?",
     answer:
@@ -264,7 +303,7 @@ export const faqs = [
   {
     question: "¿Qué le ponen para que no se caliente?",
     answer:
-      "Metal líquido alemán. En la PS5 y en la PC. No usamos lo de ferretería.",
+      "En la PS5, metal líquido alemán. En la PC gamer, pasta térmica. No usamos lo de ferretería.",
   },
   {
     question: "¿Cómo se paga?",
@@ -274,20 +313,25 @@ export const faqs = [
   {
     question: "¿Me cobran extra si no vivo en San Salvador centro?",
     answer:
-      "Depende del distrito. En Cotizar eliges departamento, municipio y distrito; ahí te sale si hay visita y si el viaje va incluido o lleva un cobro fijo.",
+      "Depende del distrito. En algunos el viaje va incluido, en otros se cobra aparte, y en otros no hay visita. En Ver precio escribes tu pueblo y te sale el total.",
   },
   {
     question: "¿Ven PS4, Xbox o Switch?",
     answer:
-      "No. Solo PlayStation 5, PC gamer y el mando DualSense de PS5, para no aflojar la calidad.",
+      "No. Solo PS5, DualSense de PS5 y PC gamer, para no aflojar la calidad.",
   },
 ] as const;
 
 export const footer = {
   ctaTitle: "¿Lo agendamos?",
-  ctaLines: ["Escríbenos.", "Cuadramos.", "Llegamos."],
+  ctaLines: [
+    "Escríbenos",
+    "Agendamos",
+    "Llegamos a tu domicilio",
+    "Mantenimiento realizado",
+  ],
   ctaBody:
-    "Mándanos WhatsApp y coordinamos la visita en San Salvador y alrededores.",
+    "WhatsApp o llamada. Si tu distrito está cubierto, vamos a tu casa en San Salvador y alrededores.",
   cta: "Escríbenos por WhatsApp",
   colophon: "Hecho en El Salvador.",
   creditPrefix: "Hecho por",

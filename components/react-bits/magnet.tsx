@@ -3,7 +3,6 @@
 import {
   useEffect,
   useRef,
-  useState,
   type HTMLAttributes,
   type ReactNode,
 } from "react";
@@ -19,6 +18,10 @@ type MagnetProps = {
   innerClassName?: string;
 } & HTMLAttributes<HTMLDivElement>;
 
+/**
+ * Sigue el cursor sin pasar por React: el transform va al DOM.
+ * El listener de window se apaga cuando el imán sale del viewport.
+ */
 export default function Magnet({
   children,
   padding = 100,
@@ -30,46 +33,106 @@ export default function Magnet({
   innerClassName = "",
   ...props
 }: MagnetProps) {
-  const [isActive, setIsActive] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const magnetRef = useRef<HTMLDivElement | null>(null);
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const isActiveRef = useRef(false);
 
   useEffect(() => {
-    if (disabled) {
-      setPosition({ x: 0, y: 0 });
-      setIsActive(false);
+    const wrap = magnetRef.current;
+    const inner = innerRef.current;
+
+    if (!wrap || !inner) {
       return;
     }
 
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!magnetRef.current) return;
+    const reset = () => {
+      isActiveRef.current = false;
+      inner.style.transition = inactiveTransition;
+      inner.style.transform = "translate3d(0, 0, 0)";
+    };
 
-      const { left, top, width, height } =
-        magnetRef.current.getBoundingClientRect();
+    if (disabled) {
+      reset();
+      inner.style.willChange = "auto";
+      return;
+    }
+
+    inner.style.willChange = "transform";
+
+    const handleMouseMove = (event: MouseEvent) => {
+      const { left, top, width, height } = wrap.getBoundingClientRect();
       const centerX = left + width / 2;
       const centerY = top + height / 2;
+      const inRange =
+        Math.abs(centerX - event.clientX) < width / 2 + padding &&
+        Math.abs(centerY - event.clientY) < height / 2 + padding;
 
-      const distX = Math.abs(centerX - event.clientX);
-      const distY = Math.abs(centerY - event.clientY);
+      if (inRange) {
+        const x = (event.clientX - centerX) / magnetStrength;
+        const y = (event.clientY - centerY) / magnetStrength;
 
-      if (distX < width / 2 + padding && distY < height / 2 + padding) {
-        setIsActive(true);
-        setPosition({
-          x: (event.clientX - centerX) / magnetStrength,
-          y: (event.clientY - centerY) / magnetStrength,
-        });
+        if (!isActiveRef.current) {
+          isActiveRef.current = true;
+          inner.style.transition = activeTransition;
+        }
+
+        inner.style.transform = `translate3d(${x}px, ${y}px, 0)`;
         return;
       }
 
-      setIsActive(false);
-      setPosition({ x: 0, y: 0 });
+      if (!isActiveRef.current) {
+        return;
+      }
+
+      reset();
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [padding, disabled, magnetStrength]);
+    let isListening = false;
 
-  const transitionStyle = isActive ? activeTransition : inactiveTransition;
+    const attach = () => {
+      if (isListening) {
+        return;
+      }
+
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
+      isListening = true;
+    };
+
+    const detach = () => {
+      if (!isListening) {
+        return;
+      }
+
+      window.removeEventListener("mousemove", handleMouseMove);
+      isListening = false;
+      reset();
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          attach();
+          return;
+        }
+
+        detach();
+      },
+      { rootMargin: "80px" },
+    );
+
+    observer.observe(wrap);
+
+    return () => {
+      observer.disconnect();
+      detach();
+    };
+  }, [
+    activeTransition,
+    disabled,
+    inactiveTransition,
+    magnetStrength,
+    padding,
+  ]);
 
   return (
     <div
@@ -78,14 +141,7 @@ export default function Magnet({
       style={{ position: "relative", display: "inline-block" }}
       {...props}
     >
-      <div
-        className={innerClassName}
-        style={{
-          transform: `translate3d(${position.x}px, ${position.y}px, 0)`,
-          transition: transitionStyle,
-          willChange: disabled ? "auto" : "transform",
-        }}
-      >
+      <div ref={innerRef} className={innerClassName}>
         {children}
       </div>
     </div>

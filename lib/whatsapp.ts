@@ -4,15 +4,40 @@ export type WhatsAppMessageKey = keyof typeof whatsappMessages;
 
 const FALLBACK_WHATSAPP_NUMBER = "50300000000";
 
-function getWhatsAppNumber(): string {
+function getContactDigits(): string {
   return (
     process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.replace(/\D/g, "") ||
     FALLBACK_WHATSAPP_NUMBER
   );
 }
 
+/**
+ * Número en E.164 (`+503…`) para `tel:` y datos estructurados.
+ */
+export function getE164Phone(): string {
+  return `+${getContactDigits()}`;
+}
+
+export function getTelHref(): string {
+  return `tel:${getE164Phone()}`;
+}
+
+/**
+ * El Salvador: +503 y 8 dígitos, agrupados de 4 en 4.
+ * Otros prefijos: el bloque internacional completo.
+ */
+export function getDisplayPhone(): string {
+  const digits = getContactDigits();
+
+  if (digits.startsWith("503") && digits.length === 11) {
+    return `+503 ${digits.slice(3, 7)} ${digits.slice(7)}`;
+  }
+
+  return getE164Phone();
+}
+
 function buildWhatsAppUrl(text: string): string {
-  return `https://wa.me/${getWhatsAppNumber()}?text=${encodeURIComponent(text)}`;
+  return `https://wa.me/${getContactDigits()}?text=${encodeURIComponent(text)}`;
 }
 
 /**

@@ -30,9 +30,9 @@ type BrandLockupProps = {
 };
 
 const iconSize = {
-  sm: "h-10 w-10",
-  md: "h-12 w-12",
-  lg: "h-16 w-16 sm:h-20 sm:w-20",
+  sm: "h-11 w-11",
+  md: "h-14 w-14",
+  lg: "h-[4.5rem] w-[4.5rem] sm:h-24 sm:w-24",
 } as const;
 
 const nameSize = {
