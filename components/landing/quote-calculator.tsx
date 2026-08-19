@@ -8,35 +8,37 @@ import {
   Ps5Mark,
 } from "@/components/landing/hardware-art";
 import { WhatsAppButton } from "@/components/landing/whatsapp-button";
+import { joystickService, quoteCopy } from "@/lib/landing-content";
 import {
-  coverageExcluded,
-  coverageZones,
-  joystickService,
-  quoteCopy,
-} from "@/lib/landing-content";
+  departments,
+  findDepartment,
+  findDistrict,
+  findMunicipality,
+  formatPlaceLabel,
+} from "@/lib/el-salvador";
 import {
   addSurcharge,
   buildQuoteMessage,
   DEFAULT_DUALSENSE_TIER,
   formatUsd,
   formatUsdRange,
+  getDistrictSurcharge,
   getEquipmentRange,
-  getZoneSurcharge,
-  isZoneCovered,
+  isDistrictCovered,
   quoteEquipment,
-  type CoverageZoneId,
   type DualSenseTierId,
   type QuoteEquipmentId,
 } from "@/lib/quote";
 import { getWhatsAppTextUrl } from "@/lib/whatsapp";
-
-const zoneOptions = [...coverageZones, coverageExcluded];
 
 const equipmentMark = {
   ps5: Ps5Mark,
   pc: PcMark,
   dualsense: DualSenseMark,
 } as const;
+
+const selectClass =
+  "mt-2 h-12 w-full border-2 border-paper/15 bg-navy-mid px-3 font-sans text-sm font-semibold uppercase tracking-tight text-paper scheme-dark focus-visible:border-mint disabled:opacity-40";
 
 type OptionCardProps = {
   label: string;
@@ -97,25 +99,40 @@ export function QuoteCalculator() {
   const [dualsenseTierId, setDualsenseTierId] = useState<DualSenseTierId>(
     DEFAULT_DUALSENSE_TIER,
   );
-  const [zoneId, setZoneId] = useState<CoverageZoneId | null>(null);
-  const [municipality, setMunicipality] = useState<string | null>(null);
+  const [departmentName, setDepartmentName] = useState("");
+  const [municipalityName, setMunicipalityName] = useState("");
+  const [districtName, setDistrictName] = useState("");
 
   const selectedEquipment = quoteEquipment.find(
     (item) => item.id === equipmentId,
   );
-  const selectedZone = zoneOptions.find((zone) => zone.id === zoneId);
   const selectedTier = joystickService.tiers.find(
     (tier) => tier.id === dualsenseTierId,
   );
+  const selectedDepartment = findDepartment(departmentName);
+  const selectedMunicipality = selectedDepartment
+    ? findMunicipality(selectedDepartment, municipalityName)
+    : undefined;
+  const selectedDistrict = selectedMunicipality
+    ? findDistrict(selectedMunicipality, districtName)
+    : undefined;
+  const placeLabel =
+    selectedDepartment && selectedMunicipality && selectedDistrict
+      ? formatPlaceLabel(
+          selectedDepartment.name,
+          selectedMunicipality.name,
+          selectedDistrict.name,
+        )
+      : null;
 
   const estimate = useMemo(() => {
-    if (!equipmentId || !zoneId || !selectedEquipment) {
+    if (!equipmentId || !selectedEquipment || !selectedDistrict) {
       return null;
     }
 
     const baseRange = getEquipmentRange(equipmentId, dualsenseTierId);
-    const covered = isZoneCovered(zoneId);
-    const surcharge = getZoneSurcharge(zoneId);
+    const covered = isDistrictCovered(selectedDistrict);
+    const surcharge = getDistrictSurcharge(selectedDistrict);
 
     if (!covered || surcharge === null) {
       return {
@@ -132,14 +149,13 @@ export function QuoteCalculator() {
       surcharge,
       totalRange: addSurcharge(baseRange, surcharge),
     };
-  }, [dualsenseTierId, equipmentId, selectedEquipment, zoneId]);
+  }, [dualsenseTierId, equipmentId, selectedDistrict, selectedEquipment]);
 
   const quoteUrl = useMemo(() => {
     if (
       !equipmentId ||
-      !zoneId ||
       !selectedEquipment ||
-      !selectedZone ||
+      !placeLabel ||
       !estimate ||
       estimate.uncovered ||
       estimate.totalRange === null ||
@@ -157,9 +173,8 @@ export function QuoteCalculator() {
       buildQuoteMessage({
         equipmentId,
         dualsenseTierId,
-        municipality,
+        placeLabel,
         serviceLabel,
-        zoneLabel: selectedZone.name,
         baseRange: estimate.baseRange,
         surcharge: estimate.surcharge,
         totalRange: estimate.totalRange,
@@ -169,16 +184,9 @@ export function QuoteCalculator() {
     dualsenseTierId,
     equipmentId,
     estimate,
-    municipality,
+    placeLabel,
     selectedEquipment,
-    selectedZone,
-    zoneId,
   ]);
-
-  const municipalities =
-    selectedZone && "municipalities" in selectedZone
-      ? selectedZone.municipalities
-      : [];
 
   function selectEquipment(id: QuoteEquipmentId) {
     setEquipmentId(id);
@@ -187,9 +195,15 @@ export function QuoteCalculator() {
     }
   }
 
-  function selectZone(id: CoverageZoneId) {
-    setZoneId(id);
-    setMunicipality(null);
+  function selectDepartment(name: string) {
+    setDepartmentName(name);
+    setMunicipalityName("");
+    setDistrictName("");
+  }
+
+  function selectMunicipality(name: string) {
+    setMunicipalityName(name);
+    setDistrictName("");
   }
 
   const priceText = !estimate
@@ -260,44 +274,69 @@ export function QuoteCalculator() {
         </fieldset>
       ) : null}
 
-      <fieldset disabled={!equipmentId} className={equipmentId ? "" : "opacity-40"}>
+      <fieldset
+        disabled={!equipmentId}
+        className={equipmentId ? "" : "opacity-40"}
+      >
         <legend className="text-sm font-semibold text-mint">
           {quoteCopy.zoneLegend}
         </legend>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {zoneOptions.map((zone) => (
-            <OptionCard
-              key={zone.id}
-              label={zone.name}
-              hint={zone.surchargeLabel}
-              isSelected={zoneId === zone.id}
-              onSelect={() => selectZone(zone.id)}
-            />
-          ))}
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-paper/62">
+              {quoteCopy.departmentLegend}
+            </span>
+            <select
+              value={departmentName}
+              onChange={(event) => selectDepartment(event.target.value)}
+              className={selectClass}
+            >
+              <option value="">{quoteCopy.placePlaceholder}</option>
+              {departments.map((department) => (
+                <option key={department.name} value={department.name}>
+                  {department.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-paper/62">
+              {quoteCopy.municipalityLegend}
+            </span>
+            <select
+              value={municipalityName}
+              onChange={(event) => selectMunicipality(event.target.value)}
+              disabled={!selectedDepartment}
+              className={selectClass}
+            >
+              <option value="">{quoteCopy.placePlaceholder}</option>
+              {selectedDepartment?.municipalities.map((municipality) => (
+                <option key={municipality.name} value={municipality.name}>
+                  {municipality.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="block">
+            <span className="text-xs font-semibold uppercase tracking-wide text-paper/62">
+              {quoteCopy.districtLegend}
+            </span>
+            <select
+              value={districtName}
+              onChange={(event) => setDistrictName(event.target.value)}
+              disabled={!selectedMunicipality}
+              className={selectClass}
+            >
+              <option value="">{quoteCopy.placePlaceholder}</option>
+              {selectedMunicipality?.districts.map((item) => (
+                <option key={item.name} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
       </fieldset>
-
-      {municipalities.length > 0 ? (
-        <fieldset>
-          <legend className="text-sm font-semibold text-mint">
-            {quoteCopy.municipalityLegend}
-          </legend>
-          <select
-            value={municipality ?? ""}
-            onChange={(event) => setMunicipality(event.target.value || null)}
-            className="mt-3 h-12 w-full max-w-md border-2 border-paper/15 bg-navy-mid px-3 font-sans text-sm font-semibold uppercase tracking-tight text-paper scheme-dark focus-visible:border-mint"
-          >
-            <option value="">{quoteCopy.municipalityPlaceholder}</option>
-            {municipalities.map((place) => (
-              <option key={place.name} value={place.name}>
-                {"note" in place && place.note
-                  ? `${place.name} — ${place.note}`
-                  : place.name}
-              </option>
-            ))}
-          </select>
-        </fieldset>
-      ) : null}
 
       <div
         aria-live="polite"
@@ -312,7 +351,7 @@ export function QuoteCalculator() {
         )}
         <p className="text-sm font-semibold">
           {estimate?.uncovered
-            ? coverageExcluded.surchargeLabel
+            ? quoteCopy.uncoveredLabel
             : quoteCopy.resultLabel}
         </p>
         <p
@@ -329,7 +368,7 @@ export function QuoteCalculator() {
             estimate?.uncovered ? "text-paper/70" : "text-navy/70"
           }`}
         >
-          {estimate && selectedEquipment && selectedZone ? (
+          {estimate && selectedEquipment && placeLabel ? (
             estimate.uncovered ? (
               quoteCopy.uncoveredBody
             ) : (
@@ -339,7 +378,7 @@ export function QuoteCalculator() {
                   ? ` · ${selectedTier.label}`
                   : null}
                 {" · "}
-                {municipality ?? selectedZone.name}
+                {placeLabel}
                 {`. Servicio ${formatUsdRange(estimate.baseRange)}`}
                 {estimate.surcharge !== null && estimate.surcharge > 0
                   ? ` · ${formatUsd(estimate.surcharge)} por el viaje.`

@@ -24,6 +24,8 @@ export const metadata: Metadata = {
   keywords: [
     "Astro PC",
     "mantenimiento PS5",
+    "metal líquido PS5",
+    "metal líquido alemán",
     "PC Gamer",
     "DualSense",
     "palancas magnéticas",

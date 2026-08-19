@@ -30,14 +30,14 @@ export const hero = {
   badge: "en tu casa",
   kicker: "Somos Astro PC",
   subtitle:
-    "Vamos a tu casa en San Salvador, limpiamos la consola o la PC, le cambiamos la pasta y, si el mando se te va solo, le ponemos palancas magnéticas.",
+    "Vamos a tu casa en San Salvador, limpiamos la PS5 o la PC y le ponemos metal líquido alemán. Si el mando se te va solo, le ponemos palancas magnéticas.",
   cta: "Escríbenos por WhatsApp",
   quoteCta: "Arma tu precio",
   status: "Estamos agendando",
 } as const;
 
 export const heroStats = [
-  { value: "$65", label: "Precio fijo", note: "PS5 o PC gamer en Gran San Salvador" },
+  { value: "$65", label: "Desde este precio", note: "PS5 o PC gamer, según el distrito" },
   { value: "4", label: "Pasos", note: "Nos escribes, vamos, trabajamos y lo pruebas" },
   { value: "3", label: "Garantías", note: "Por escrito, antes de irnos" },
 ] as const;
@@ -47,7 +47,8 @@ export const marqueeItems = [
   "PC Gamer",
   "DualSense",
   "El mando se va solo",
-  "Pasta térmica",
+  "Metal líquido alemán",
+  "Insumos alemanes",
   "En tu casa",
   "San Salvador",
   "Desde $65",
@@ -60,13 +61,13 @@ export const specialization = {
     {
       code: "01",
       label: "PlayStation 5",
-      note: "La abrimos, le sacamos el polvo y le ponemos pasta nueva.",
+      note: "La abrimos, le sacamos el polvo y le ponemos metal líquido alemán.",
       href: "#servicios",
     },
     {
       code: "02",
       label: "PC Gamer",
-      note: "Limpieza a fondo, pasta en el procesador y en la gráfica.",
+      note: "Limpieza a fondo, metal líquido alemán en el procesador y en la gráfica.",
       href: "#servicios",
     },
     {
@@ -82,107 +83,7 @@ export const specialization = {
 } as const;
 
 export const coverageNote =
-  "En Gran San Salvador el precio que ves es el final. Más lejos se suma un cobro fijo por el viaje. A playas, oriente, paracentral, norte y occidente profundo no llegamos.";
-
-export const coverageZones = [
-  {
-    id: "central",
-    name: "Gran San Salvador",
-    surchargeLabel: "Sin extra",
-    surcharge: 0,
-    covered: true,
-    note: "San Salvador, Santa Tecla, Soyapango y alrededores. El precio publicado queda igual.",
-    municipalities: [
-      {
-        name: "San Salvador Centro",
-        note: "Escalón, San Benito, Miramonte, Miralvalle, Autopista Sur, Centro Histórico",
-      },
-      {
-        name: "Antiguo Cuscatlán",
-        note: "Santa Elena, Merliot",
-      },
-      { name: "Santa Tecla" },
-      { name: "Vía del Mar" },
-      { name: "Apopa" },
-      { name: "Nejapa" },
-      { name: "Mejicanos" },
-      { name: "Cuscatancingo" },
-      { name: "Ciudad Delgado" },
-      { name: "Ayutuxtepeque" },
-      { name: "Soyapango" },
-      { name: "Sonsonate", note: "Casco urbano" },
-      { name: "Izalco" },
-      { name: "Sonzacate" },
-    ],
-  },
-  {
-    id: "periferica-1",
-    name: "Un poco más lejos",
-    surchargeLabel: "+$5 por el viaje",
-    surcharge: 5,
-    covered: true,
-    note: "Cobro fijo por ir hasta allá.",
-    municipalities: [
-      { name: "Nuevo Cuscatlán" },
-      { name: "San Marcos" },
-      { name: "Santo Tomás" },
-      { name: "Planes de Renderos" },
-    ],
-  },
-  {
-    id: "periferica-2",
-    name: "Más lejos",
-    surchargeLabel: "+$10 por el viaje",
-    surcharge: 10,
-    covered: true,
-    note: "Cobro fijo por ir hasta allá.",
-    municipalities: [
-      { name: "Lourdes" },
-      { name: "Zaragoza" },
-      { name: "Ilopango" },
-      { name: "San Martín" },
-      { name: "Juan Opico", note: "Casco urbano" },
-      { name: "Cojutepeque" },
-    ],
-  },
-  {
-    id: "departamental",
-    name: "Santa Ana",
-    surchargeLabel: "+$20 por el viaje",
-    surcharge: 20,
-    covered: true,
-    note: "Solo el casco urbano.",
-    municipalities: [{ name: "Santa Ana", note: "Solo el casco urbano" }],
-  },
-] as const;
-
-export const coverageExcluded = {
-  id: "excluded",
-  name: "Ahí no llegamos",
-  surchargeLabel: "Sin servicio",
-  surcharge: null,
-  covered: false,
-  note: "No vamos a playas, oriente, paracentral, norte ni occidente profundo.",
-  municipalities: [
-    {
-      name: "Playas y costa",
-      note: "Surf City, El Tunco, Costa del Sol, Majahual, Metalío",
-    },
-    {
-      name: "Oriente",
-      note: "San Miguel, Usulután, Morazán, La Unión",
-    },
-    {
-      name: "Paracentral",
-      note: "San Vicente, Cabañas",
-    },
-    { name: "Norte", note: "Chalatenango" },
-    {
-      name: "Occidente profundo",
-      note: "Ahuachapán, Ataco, Apaneca, Metapán, Chalchuapa, El Congo, Coatepeque",
-    },
-  ],
-} as const;
+  "Elige departamento, municipio y distrito. Si hay visita, el precio sale en Cotizar. En algunos distritos el viaje va incluido; en otros se suma un cobro fijo.";
 
 export const quoteCopy = {
   titleLead: "Arma",
@@ -190,30 +91,32 @@ export const quoteCopy = {
   body: "Elige el equipo y dónde vives. Si hay cobro por el viaje, te sale ahí mismo.",
   steps: [
     { code: "1", label: "Equipo" },
-    { code: "2", label: "Zona" },
+    { code: "2", label: "Lugar" },
     { code: "3", label: "Precio" },
   ],
   equipmentLegend: "¿Qué hay que revisar?",
   dualsenseLegend: "¿Cuántas palancas?",
   zoneLegend: "¿Dónde vives?",
-  municipalityLegend: "Municipio (si quieres afinar)",
-  municipalityPlaceholder: "Toda la zona",
+  departmentLegend: "Departamento",
+  municipalityLegend: "Municipio",
+  districtLegend: "Distrito",
+  placePlaceholder: "Elegir",
   resultLabel: "Te queda en",
-  resultEmpty: "Elige equipo y zona para ver el precio.",
+  resultEmpty: "Elige equipo y distrito para ver el precio.",
   resultUncovered: "Ahí no llegamos",
+  uncoveredLabel: "Sin servicio",
   uncoveredBody:
-    "Esa zona está fuera. No agendamos visitas en playas, oriente, paracentral, norte ni occidente profundo.",
+    "En ese distrito no agendamos visitas. Prueba con otro o escríbenos por WhatsApp si tienes duda.",
   baseLabel: "Servicio",
   surchargeLabel: "Viaje",
   disclaimer:
     "El cobro por el viaje es fijo. El mando DualSense sale en rango, según cuántas palancas.",
   cta: "Confirmar por WhatsApp",
   coverageTitle: "Dónde sí llegamos",
-  coverageBody: "Si tu colonia está en uno de estos municipios, aplica ese cobro por el viaje.",
-  coverageToggle: "Ver municipios",
+  coverageToggle: "Ver municipios y distritos",
   coverageTeaser:
-    "En Gran San Salvador no se cobra extra. Más lejos son +$5, +$10 o +$20 por el viaje.",
-  coverageCta: "Ver zonas",
+    "Elige departamento, municipio y distrito. Si hay cobro por el viaje, te sale ahí mismo.",
+  coverageCta: "Ver departamentos",
 } as const;
 
 export const maintenanceServices = [
@@ -225,7 +128,7 @@ export const maintenanceServices = [
     whatsappKey: "ps5" as const,
     items: [
       "Le sacamos el polvo de los disipadores y de los conductos.",
-      "Le ponemos pasta térmica nueva (o metal líquido, si hace falta).",
+      "Le ponemos metal líquido alemán.",
       "Queda ventilando mejor, para que no se caliente tanto.",
     ],
   },
@@ -237,7 +140,7 @@ export const maintenanceServices = [
     whatsappKey: "pc" as const,
     items: [
       "Abrimos el gabinete y limpiamos ventiladores, gráfica, tarjeta madre y fuente.",
-      "Pasta nueva en el procesador y en la gráfica.",
+      "Metal líquido alemán en el procesador y en la gráfica.",
       "Acomodamos cables para que corra mejor el aire.",
     ],
   },
@@ -323,7 +226,7 @@ export const processSteps = [
   {
     step: "3",
     title: "Lo dejamos listo",
-    body: "Limpieza, pasta térmica o cambio de palancas, según lo que cotizamos.",
+    body: "Limpieza, metal líquido alemán o cambio de palancas, según lo que cotizamos.",
   },
   {
     step: "4",
@@ -359,6 +262,11 @@ export const faqs = [
       "Una mesa o un espacio despejado, con luz y un enchufe cerca. Las herramientas las llevamos nosotros.",
   },
   {
+    question: "¿Qué le ponen para que no se caliente?",
+    answer:
+      "Metal líquido alemán. En la PS5 y en la PC. No usamos lo de ferretería.",
+  },
+  {
     question: "¿Cómo se paga?",
     answer:
       "Lo confirmamos al agendar: efectivo o transferencia, como se usa aquí. El precio se cierra antes de empezar.",
@@ -366,7 +274,7 @@ export const faqs = [
   {
     question: "¿Me cobran extra si no vivo en San Salvador centro?",
     answer:
-      "Santa Tecla, Antiguo Cuscatlán, Soyapango, Apopa y el resto de Gran San Salvador no pagan extra. Un poco más lejos son $5, más lejos $10 y Santa Ana (casco urbano) $20. Playas, oriente, paracentral, norte y occidente profundo no tienen visita. Eso lo ves en Cotizar.",
+      "Depende del distrito. En Cotizar eliges departamento, municipio y distrito; ahí te sale si hay visita y si el viaje va incluido o lleva un cobro fijo.",
   },
   {
     question: "¿Ven PS4, Xbox o Switch?",

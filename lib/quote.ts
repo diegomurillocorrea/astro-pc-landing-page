@@ -1,15 +1,8 @@
-import {
-  coverageExcluded,
-  coverageZones,
-  joystickService,
-  maintenanceServices,
-} from "@/lib/landing-content";
+import { joystickService, maintenanceServices } from "@/lib/landing-content";
+import type { District } from "@/lib/el-salvador";
 
 export type QuoteEquipmentId = "ps5" | "pc" | "dualsense";
 export type DualSenseTierId = (typeof joystickService.tiers)[number]["id"];
-export type CoverageZoneId =
-  | (typeof coverageZones)[number]["id"]
-  | typeof coverageExcluded.id;
 
 type MoneyRange = {
   min: number;
@@ -52,15 +45,14 @@ export const quoteEquipment = [
 const equipmentById = new Map(
   quoteEquipment.map((item) => [item.id, item] as const),
 );
-const zoneById = new Map(coverageZones.map((zone) => [zone.id, zone] as const));
 const tierById = new Map(
   joystickService.tiers.map((tier) => [tier.id, tier] as const),
 );
 
 export const DEFAULT_DUALSENSE_TIER: DualSenseTierId = "two-sticks";
 
-export function isZoneCovered(zoneId: CoverageZoneId): boolean {
-  return zoneId !== coverageExcluded.id;
+export function isDistrictCovered(district: District | undefined): boolean {
+  return district?.surcharge !== null && district?.surcharge !== undefined;
 }
 
 export function getEquipmentRange(
@@ -78,13 +70,11 @@ export function getEquipmentRange(
     : { min: 0, max: 0 };
 }
 
-/** Recargo fijo de la matriz. `null` si la zona no tiene servicio. */
-export function getZoneSurcharge(zoneId: CoverageZoneId): number | null {
-  if (zoneId === coverageExcluded.id) {
-    return null;
-  }
-
-  return zoneById.get(zoneId)?.surcharge ?? 0;
+/** Recargo fijo del distrito. `null` si no hay visita. */
+export function getDistrictSurcharge(
+  district: District | undefined,
+): number | null {
+  return district?.surcharge ?? null;
 }
 
 export function addSurcharge(base: MoneyRange, surcharge: number): MoneyRange {
@@ -122,9 +112,8 @@ export function formatSurcharge(amount: number): string {
 type QuoteMessageInput = {
   equipmentId: QuoteEquipmentId;
   dualsenseTierId: DualSenseTierId;
-  municipality: string | null;
+  placeLabel: string;
   serviceLabel: string;
-  zoneLabel: string;
   baseRange: MoneyRange;
   surcharge: number;
   totalRange: MoneyRange;
@@ -132,27 +121,25 @@ type QuoteMessageInput = {
 
 /**
  * Mensaje de WhatsApp con la selección del cotizador, para que el agendamiento
- * llegue con equipo, zona y tarifa ya escritos.
+ * llegue con equipo, lugar y tarifa ya escritos.
  */
 export function buildQuoteMessage({
   equipmentId,
   dualsenseTierId,
-  municipality,
+  placeLabel,
   serviceLabel,
-  zoneLabel,
   baseRange,
   surcharge,
   totalRange,
 }: QuoteMessageInput): string {
-  const place = municipality ?? zoneLabel;
   const service =
     equipmentId === "dualsense"
       ? `${serviceLabel} (${tierById.get(dualsenseTierId)?.label ?? ""})`
       : serviceLabel;
 
   if (surcharge === 0) {
-    return `Hola Astro PC, quiero agendar: ${service} en ${place}. Precio ${formatUsdRange(totalRange)} (viaje incluido). ¿Qué día pueden?`;
+    return `Hola Astro PC, quiero agendar: ${service} en ${placeLabel}. Precio ${formatUsdRange(totalRange)} (viaje incluido). ¿Qué día pueden?`;
   }
 
-  return `Hola Astro PC, quiero agendar: ${service} en ${place}. Precio ${formatUsdRange(totalRange)} (servicio ${formatUsdRange(baseRange)} + viaje ${formatUsd(surcharge)}). ¿Qué día pueden?`;
+  return `Hola Astro PC, quiero agendar: ${service} en ${placeLabel}. Precio ${formatUsdRange(totalRange)} (servicio ${formatUsdRange(baseRange)} + viaje ${formatUsd(surcharge)}). ¿Qué día pueden?`;
 }
